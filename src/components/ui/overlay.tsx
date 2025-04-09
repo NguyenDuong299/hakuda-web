@@ -1,6 +1,9 @@
 import React from "react";
 
-const Overlay = () => {
-  return <div className="overlay"></div>;
+interface Props {
+  onClick: () => void;
+}
+const Overlay: React.FC<Props> = ({ onClick }) => {
+  return <div onClick={onClick} className="overlay"></div>;
 };
 export default Overlay;

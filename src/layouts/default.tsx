@@ -6,13 +6,11 @@ interface Props {
 }
 const DefaultLayout = ({ children }: Props) => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
       <Header />
-      <div className="flex flex-1">
-        <main>{children}</main>
-      </div>
+      <main>{children}</main>
       <Footer />
-    </div>
+    </>
   );
 };
 export default DefaultLayout;
