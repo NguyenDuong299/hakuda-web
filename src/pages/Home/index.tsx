@@ -1,7 +1,10 @@
 import React from "react";
 import Banner from "./banner";
 import Brand from "./brand";
+import News from "./news";
 import Product from "./product";
+import Service from "./service";
+import Suggest from "./suggest";
 
 const HomePage = () => {
   return (
@@ -9,6 +12,9 @@ const HomePage = () => {
       <Banner />
       <Brand />
       <Product />
+      <News />
+      <Suggest />
+      <Service />
     </>
   );
 };

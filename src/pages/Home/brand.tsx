@@ -6,16 +6,29 @@ import { Autoplay, Navigation } from "swiper/modules";
 
 const Brand = () => {
   return (
-    <section className="mt-2.5">
+    <section className="mt-[30px]">
       <div className="container px-5 mx-auto lg:px-0">
         <div>
           <Swiper
             className="w-full rounded-full"
             spaceBetween={0}
-            slidesPerView={10}
-            autoplay={{ delay: 127000 }}
             navigation={true}
+            autoplay={{ delay: 127000 }}
             modules={[Autoplay, Navigation]}
+            breakpoints={{
+              320: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 6,
+              },
+              1024: {
+                slidesPerView: 8,
+              },
+              1280: {
+                slidesPerView: 10,
+              },
+            }}
           >
             <SwiperSlide>
               <a href="/" className="flex flex-col items-center group">

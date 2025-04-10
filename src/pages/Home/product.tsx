@@ -43,11 +43,21 @@ const Product = () => {
               </div>
               <div className="mt-5">
                 <Swiper
-                  slidesPerView={5}
                   spaceBetween={30}
                   navigation={{
                     nextEl: ".next-btn",
                     prevEl: ".prev-btn",
+                  }}
+                  breakpoints={{
+                    320: {
+                      slidesPerView: 2,
+                    },
+                    1024: {
+                      slidesPerView: 4,
+                    },
+                    1280: {
+                      slidesPerView: 5,
+                    },
                   }}
                   modules={[Navigation]}
                   className="swiperProduct relative"
@@ -153,8 +163,11 @@ const Product = () => {
             </div>
             <div className="bg-[#F91111] px-2.5 rounded-[7px] pt-6 pb-2.5 mt-5">
               <div className="flex items-center justify-between">
-                <div className=" flex items-center gap-4">
-                  <a className="text-2xl font-extrabold text-white" href="/">
+                <div className="md:flex items-center gap-4 ">
+                  <a
+                    className="text-2xl font-extrabold text-white text-nowrap"
+                    href="/"
+                  >
                     GIÁ TỐT HÔM NAY
                   </a>
                   <div className="flex items-center gap-2">
@@ -192,11 +205,21 @@ const Product = () => {
               </div>
               <div className="">
                 <Swiper
-                  slidesPerView={3}
                   spaceBetween={10}
                   navigation={{
                     nextEl: ".next-btn-2",
                     prevEl: ".prev-btn-2",
+                  }}
+                  breakpoints={{
+                    320: {
+                      slidesPerView: 1,
+                    },
+                    768: {
+                      slidesPerView: 2,
+                    },
+                    1024: {
+                      slidesPerView: 3,
+                    },
                   }}
                   modules={[Navigation]}
                   className="swiperProduct relative mt-4"

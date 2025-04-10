@@ -204,7 +204,7 @@ const Header = () => {
               </a>
             </li>
             <li className="relative">
-              <a className="text-base font-bold py-3 block" href="/">
+              <a className="text-base font-bold py-3 block" href="/news">
                 Tin Tức
               </a>
             </li>
