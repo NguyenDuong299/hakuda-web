@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Overlay from "../ui/overlay";
 const Header = () => {
   const [active, setActive] = useState(false);
@@ -8,9 +9,13 @@ const Header = () => {
       <div className="container mx-auto px-5 lg:px-0">
         <div className="flex py-[18px] justify-between items-center flex-wrap">
           <div className="w-1/2 md:w-auto">
-            <a href="/">
-              <img className="block h-12 md:h-16" src="/images/logo.webp" alt="" />
-            </a>
+            <Link to="/">
+              <img
+                className="block h-12 md:h-16"
+                src="/images/logo.webp"
+                alt=""
+              />
+            </Link>
           </div>
           <div className="flex gap-8 md:order-1 w-1/2 md:w-auto justify-end">
             <div className="items-center gap-[7px] hidden lg:flex">
@@ -21,29 +26,41 @@ const Header = () => {
               />
               <div className="flex flex-col gap-0.5 leading-[18px]">
                 <div className="flex gap-1">
-                  <a className="font-semibold hover:opacity-50" href="/account/login">
+                  <Link
+                    className="font-semibold hover:opacity-50"
+                    to="/account/login"
+                  >
                     Đăng nhập
-                  </a>
-                  <a className="font-semibold hover:opacity-50" href="/account/register">
+                  </Link>
+                  <Link
+                    className="font-semibold hover:opacity-50"
+                    to="/account/register"
+                  >
                     Đăng ký
-                  </a>
+                  </Link>
                 </div>
                 <span className="text-[#666]">Xin chào bạn!</span>
               </div>
             </div>
             <div className="flex items-center gap-[7px]">
               <div className="relative">
-                <img src="/images/icons/cart.svg" className="h-[34px]" alt="" />
+                <Link to="/cart">
+                  <img
+                    src="/images/icons/cart.svg"
+                    className="h-[34px]"
+                    alt=""
+                  />
+                </Link>
                 <span className="bg-[#DB0015] rounded-full text-white absolute w-5 h-5 flex items-center justify-center left-0 -top-[3px]">
                   0
                 </span>
               </div>
-              <a
+              <Link
+                to="/cart"
                 className="hover:opacity-50 leading-[18px] hidden lg:block"
-                href="/"
               >
                 Giỏ hàng <br /> của bạn
-              </a>
+              </Link>
             </div>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/3">
@@ -204,9 +221,9 @@ const Header = () => {
               </a>
             </li>
             <li className="relative">
-              <a className="text-base font-bold py-3 block" href="/news">
+              <Link className="text-base font-bold py-3 block" to="/news">
                 Tin Tức
-              </a>
+              </Link>
             </li>
             <li className="relative">
               <a className="text-base font-bold py-3 block" href="/">

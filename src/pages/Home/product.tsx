@@ -3,8 +3,47 @@ import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
+import { Link } from "react-router-dom";
 
 const Product = () => {
+  const recentProducts = [
+    {
+      productName:
+        "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
+      productImg: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
+      price: "1.400.000",
+    },
+    {
+      productName:
+        "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
+      productImg: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
+      price: "1.400.000",
+    },
+    {
+      productName:
+        "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
+      productImg: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
+      price: "1.400.000",
+    },
+    {
+      productName:
+        "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
+      productImg: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
+      price: "1.400.000",
+    },
+    {
+      productName:
+        "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
+      productImg: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
+      price: "1.400.000",
+    },
+    {
+      productName:
+        "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
+      productImg: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
+      price: "1.400.000",
+    },
+  ];
   return (
     <section className="mt-[30px]">
       <div className="container px-5 lg:px-0 mx-auto">
@@ -62,102 +101,25 @@ const Product = () => {
                   modules={[Navigation]}
                   className="swiperProduct relative"
                 >
-                  <SwiperSlide>
-                    <img
-                      src="/images/f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp"
-                      alt=""
-                      className="w-full"
-                    />
-                    <div className="mt-4">
-                      <h3 className="text-[15px] font-semibold truncate">
-                        Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha)
-                        - Mô hình chính hãng Moshow Toys
-                      </h3>
-                      <span className="text-[#FD0000] font-bold text-base">
-                        1.400.000đ
-                      </span>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img
-                      src="/images/f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp"
-                      alt=""
-                      className="w-full"
-                    />
-                    <div className="mt-4">
-                      <h3 className="text-[15px] font-semibold truncate">
-                        Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha)
-                        - Mô hình chính hãng Moshow Toys
-                      </h3>
-                      <span className="text-[#FD0000] font-bold text-base">
-                        1.400.000đ
-                      </span>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img
-                      src="/images/f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp"
-                      alt=""
-                      className="w-full"
-                    />
-                    <div className="mt-4">
-                      <h3 className="text-[15px] font-semibold truncate">
-                        Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha)
-                        - Mô hình chính hãng Moshow Toys
-                      </h3>
-                      <span className="text-[#FD0000] font-bold text-base">
-                        1.400.000đ
-                      </span>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img
-                      src="/images/f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp"
-                      alt=""
-                      className="w-full"
-                    />
-                    <div className="mt-4">
-                      <h3 className="text-[15px] font-semibold truncate">
-                        Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha)
-                        - Mô hình chính hãng Moshow Toys
-                      </h3>
-                      <span className="text-[#FD0000] font-bold text-base">
-                        1.400.000đ
-                      </span>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img
-                      src="/images/f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp"
-                      alt=""
-                      className="w-full"
-                    />
-                    <div className="mt-4">
-                      <h3 className="text-[15px] font-semibold truncate">
-                        Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha)
-                        - Mô hình chính hãng Moshow Toys
-                      </h3>
-                      <span className="text-[#FD0000] font-bold text-base">
-                        1.400.000đ
-                      </span>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <img
-                      src="/images/f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp"
-                      alt=""
-                      className="w-full"
-                    />
-                    <div className="mt-4">
-                      <h3 className="text-[15px] font-semibold truncate">
-                        Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha)
-                        - Mô hình chính hãng Moshow Toys
-                      </h3>
-                      <span className="text-[#FD0000] font-bold text-base">
-                        1.400.000đ
-                      </span>
-                    </div>
-                  </SwiperSlide>
+                  {recentProducts.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      <Link to="/">
+                        <img
+                          src={`images/${item.productImg}`}
+                          alt=""
+                          className="w-full"
+                        />
+                      </Link>
+                      <div className="mt-4">
+                        <h3 className="text-[15px] font-semibold truncate">
+                          <Link to="/">{item.productName}</Link>
+                        </h3>
+                        <span className="text-[#FD0000] font-bold text-base">
+                          {item.price}đ
+                        </span>
+                      </div>
+                    </SwiperSlide>
+                  ))}
                 </Swiper>
               </div>
             </div>

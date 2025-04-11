@@ -4,6 +4,8 @@ import HomePage from "../pages/Home";
 import NewsPage from "../pages/News";
 import Login from "../pages/account/login";
 import Register from "../pages/account/register";
+import ProductDetail from "../pages/ProductDetail";
+import Cart from "../pages/cart";
 
 const AppRoutes = () => {
   return (
@@ -37,6 +39,22 @@ const AppRoutes = () => {
         element={
           <DefaultLayout>
             <Register />
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="/news/:slug"
+        element={
+          <DefaultLayout>
+            <ProductDetail />
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="/cart"
+        element={
+          <DefaultLayout>
+            <Cart />
           </DefaultLayout>
         }
       />

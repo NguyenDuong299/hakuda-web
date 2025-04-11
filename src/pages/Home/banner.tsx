@@ -2,9 +2,23 @@ import "swiper/css";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
-import { Autoplay, Navigation  } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 
 const Banner = () => {
+  const mockData = [
+    {
+      bannerImg: "slider_1.webp",
+    },
+    {
+      bannerImg: "slider_1.webp",
+    },
+    {
+      bannerImg: "slider_1.webp",
+    },
+    {
+      bannerImg: "slider_1.webp",
+    },
+  ];
   return (
     <section className="mt-2.5">
       <div className="container px-5 mx-auto lg:px-0">
@@ -18,21 +32,17 @@ const Banner = () => {
             navigation={true}
             modules={[Autoplay, Navigation]}
           >
-            <SwiperSlide>
-              <a href="/">
-                <img src="/images/slider_1.webp" alt="" className="w-full" />
-              </a>
-            </SwiperSlide>
-            <SwiperSlide>
-              <a href="/">
-                <img src="/images/slider_1.webp" alt="" className="w-full" />
-              </a>
-            </SwiperSlide>
-            <SwiperSlide>
-              <a href="/">
-                <img src="/images/slider_1.webp" alt="" className="w-full" />
-              </a>
-            </SwiperSlide>
+            {mockData.map((item, index) => (
+              <SwiperSlide>
+                <a href="/">
+                  <img
+                    src={`/images/${item.bannerImg}`}
+                    alt=""
+                    className="w-full"
+                  />
+                </a>
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </div>
