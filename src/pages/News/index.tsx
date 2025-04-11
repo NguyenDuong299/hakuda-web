@@ -2,6 +2,7 @@ import React from "react";
 import Breadcrumb from "../../components/ui/breadcrumb";
 import FeaturedNews from "./featurednews";
 import NewsList from "./newslist";
+import FeaturedProduct from "./featuredproduct";
 
 const NewsPage = () => {
   return (
@@ -14,6 +15,9 @@ const NewsPage = () => {
           </div>
           <div className="w-full lg:w-1/4">
             <FeaturedNews />
+            <div className="mt-[30px]">
+              <FeaturedProduct />
+            </div>
           </div>
         </div>
       </div>

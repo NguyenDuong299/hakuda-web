@@ -21,10 +21,10 @@ const Header = () => {
               />
               <div className="flex flex-col gap-0.5 leading-[18px]">
                 <div className="flex gap-1">
-                  <a className="font-semibold hover:opacity-50" href="/">
+                  <a className="font-semibold hover:opacity-50" href="/account/login">
                     Đăng nhập
                   </a>
-                  <a className="font-semibold hover:opacity-50" href="/">
+                  <a className="font-semibold hover:opacity-50" href="/account/register">
                     Đăng ký
                   </a>
                 </div>
@@ -68,7 +68,7 @@ const Header = () => {
               DANH MỤC SẢN PHẨM
             </span>
             <ul
-              className="bg-white absolute w-full hidden group-hover/menu:block"
+              className="bg-white absolute w-full hidden group-hover/menu:block z-10"
               style={{ boxShadow: "0px 0px 20px 0px rgba(44,44,44,0.05)" }}
             >
               <li className="border-b border-[#ebebeb] group">
