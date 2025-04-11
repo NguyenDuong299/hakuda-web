@@ -6,6 +6,7 @@ import Login from "../pages/account/login";
 import Register from "../pages/account/register";
 import ProductDetail from "../pages/ProductDetail";
 import Cart from "../pages/cart";
+import Product from "../pages/products";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +24,14 @@ const AppRoutes = () => {
         element={
           <DefaultLayout>
             <NewsPage />
+          </DefaultLayout>
+        }
+      />
+      <Route
+        path="/product"
+        element={
+          <DefaultLayout>
+            <Product />
           </DefaultLayout>
         }
       />
