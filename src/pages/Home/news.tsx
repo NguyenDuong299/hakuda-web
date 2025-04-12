@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const News = () => {
   return (
@@ -64,18 +65,18 @@ const News = () => {
             <div className="flex flex-col gap-5 lg:flex-row">
               <div className="w-full lg:w-1/2">
                 <div className="">
-                  <a href="/">
+                  <Link to="/">
                     <img
                       className="rounded-[7px]"
                       src="/images/cach-lap-rap-mo-hinh-mg-cho-nguoi-moi.webp"
                       alt=""
                     />
-                  </a>
+                  </Link>
                   <div>
-                    <a className="mt-2.5 line-clamp-1 font-bold" href="#">
+                    <Link className="mt-2.5 line-clamp-1 font-bold" to="/">
                       Cách Lắp Ráp Mô Hình Gundam MG Cho Người Mới: Hướng Dẫn
                       Chi Tiết Từ A-Z
-                    </a>
+                    </Link>
                     <span className="text-[#838383]">05/03/2025</span>
                     <p className="line-clamp-2 text-[#838383]">
                       Bạn vừa mua chiếc mô hình Gundam Master Grade (MG) đầu

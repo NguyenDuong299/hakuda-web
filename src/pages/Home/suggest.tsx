@@ -3,7 +3,35 @@ import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
+import { Link } from "react-router-dom";
 const Suggest = () => {
+  const mockData = [
+    {
+      img: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
+      name: "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
+      price: "1400000",
+    },
+    {
+      img: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
+      name: "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
+      price: "1400000",
+    },
+    {
+      img: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
+      name: "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
+      price: "1400000",
+    },
+    {
+      img: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
+      name: "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
+      price: "1400000",
+    },
+    {
+      img: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
+      name: "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
+      price: "1400000",
+    },
+  ];
   return (
     <section className="mt-[30px]">
       <div className="container px-5 lg:px-0 mx-auto">
@@ -50,102 +78,21 @@ const Suggest = () => {
           modules={[Navigation]}
           className="swiperProduct relative"
         >
-          <SwiperSlide>
-            <img
-              src="/images/f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp"
-              alt=""
-              className="w-full"
-            />
-            <div className="mt-4">
-              <h3 className="text-[15px] font-semibold truncate">
-                Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô
-                hình chính hãng Moshow Toys
-              </h3>
-              <span className="text-[#FD0000] font-bold text-base">
-                1.400.000đ
-              </span>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src="/images/f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp"
-              alt=""
-              className="w-full"
-            />
-            <div className="mt-4">
-              <h3 className="text-[15px] font-semibold truncate">
-                Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô
-                hình chính hãng Moshow Toys
-              </h3>
-              <span className="text-[#FD0000] font-bold text-base">
-                1.400.000đ
-              </span>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src="/images/f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp"
-              alt=""
-              className="w-full"
-            />
-            <div className="mt-4">
-              <h3 className="text-[15px] font-semibold truncate">
-                Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô
-                hình chính hãng Moshow Toys
-              </h3>
-              <span className="text-[#FD0000] font-bold text-base">
-                1.400.000đ
-              </span>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src="/images/f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp"
-              alt=""
-              className="w-full"
-            />
-            <div className="mt-4">
-              <h3 className="text-[15px] font-semibold truncate">
-                Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô
-                hình chính hãng Moshow Toys
-              </h3>
-              <span className="text-[#FD0000] font-bold text-base">
-                1.400.000đ
-              </span>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src="/images/f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp"
-              alt=""
-              className="w-full"
-            />
-            <div className="mt-4">
-              <h3 className="text-[15px] font-semibold truncate">
-                Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô
-                hình chính hãng Moshow Toys
-              </h3>
-              <span className="text-[#FD0000] font-bold text-base">
-                1.400.000đ
-              </span>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img
-              src="/images/f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp"
-              alt=""
-              className="w-full"
-            />
-            <div className="mt-4">
-              <h3 className="text-[15px] font-semibold truncate">
-                Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô
-                hình chính hãng Moshow Toys
-              </h3>
-              <span className="text-[#FD0000] font-bold text-base">
-                1.400.000đ
-              </span>
-            </div>
-          </SwiperSlide>
+          {mockData.map((item, index) => (
+            <SwiperSlide key={index} className="group">
+              <Link to="/">
+                <img src={`/images/${item.img}`} alt="" className="w-full group-hover:scale-110 duration-500" />
+              </Link>
+              <div className="mt-4">
+                <h3 className="text-[15px] font-semibold truncate">
+                  <Link className="hover:text-[#A3A3A3]" to="/">{item.name}</Link>
+                </h3>
+                <span className="text-[#FD0000] font-bold text-base">
+                  {Number(item.price).toLocaleString("vi-VN")}₫
+                </span>
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </section>

@@ -2,11 +2,12 @@ import { Routes, Route } from "react-router-dom";
 import DefaultLayout from "../layouts/default";
 import HomePage from "../pages/Home";
 import NewsPage from "../pages/News";
-import Login from "../pages/account/login";
-import Register from "../pages/account/register";
+import Login from "../pages/Account/login";
+import Register from "../pages/Account/register";
 import ProductDetail from "../pages/ProductDetail";
-import Cart from "../pages/cart";
-import Product from "../pages/products";
+import Cart from "../pages/Cart";
+import Product from "../pages/Products";
+import NewDetail from "../pages/NewDetail";
 
 const AppRoutes = () => {
   return (
@@ -28,10 +29,18 @@ const AppRoutes = () => {
         }
       />
       <Route
-        path="/product"
+        path="/products"
         element={
           <DefaultLayout>
             <Product />
+          </DefaultLayout>
+        }
+      />
+       <Route
+        path="/products/:slug"
+        element={
+          <DefaultLayout>
+            <ProductDetail />
           </DefaultLayout>
         }
       />
@@ -55,7 +64,7 @@ const AppRoutes = () => {
         path="/news/:slug"
         element={
           <DefaultLayout>
-            <ProductDetail />
+            <NewDetail />
           </DefaultLayout>
         }
       />

@@ -102,17 +102,17 @@ const Product = () => {
                   className="swiperProduct relative"
                 >
                   {recentProducts.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <Link to="/">
+                    <SwiperSlide key={index} className="group">
+                      <Link to="/" className="block overflow-hidden">
                         <img
                           src={`images/${item.productImg}`}
                           alt=""
-                          className="w-full"
+                          className="w-full group-hover:scale-110 duration-500"
                         />
                       </Link>
                       <div className="mt-4">
                         <h3 className="text-[15px] font-semibold truncate">
-                          <Link to="/">{item.productName}</Link>
+                          <Link className="hover:text-[#A3A3A3]" to="/">{item.productName}</Link>
                         </h3>
                         <span className="text-[#FD0000] font-bold text-base">
                           {item.price}đ

@@ -16,8 +16,13 @@ body {
   font-weight: 500;
 }
 
-input:focus-visible {
+input:focus-visible,
+select:focus-visible {
   outline: 0;
+}
+
+.fancybox__footer {
+  display: none;
 }
 
 .overlay {
@@ -30,6 +35,32 @@ input:focus-visible {
   background: black;
   opacity: .8;
   z-index: 12;
+}
+
+.voucher::before,
+.voucher::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent #ebebeb #ebebeb transparent;
+  border-image: initial;
+  position: absolute;
+  top: 50%;
+  margin-top: -5px;
+  border-radius: 50%;
+}
+
+.voucher::before {
+  left: -6px;
+  transform: rotate(-45deg);
+}
+
+.voucher::after {
+  right: -6px;
+  transform: rotate(135deg);
 }
 
 .swiper-button-prev::after,

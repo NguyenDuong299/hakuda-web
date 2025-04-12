@@ -2,7 +2,7 @@ import React from "react";
 import Breadcrumb from "../../components/ui/breadcrumb";
 import FeaturedNews from "../../components/ui/news/featurednews";
 import NewsList from "../../components/ui/news/newslist";
-import FeaturedProduct from "./featuredproduct";
+import FeaturedProduct from "./FeaturedProduct";
 
 const NewsPage = () => {
   return (

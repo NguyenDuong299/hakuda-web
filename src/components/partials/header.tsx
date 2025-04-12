@@ -149,7 +149,7 @@ const Header = () => {
                 Model Kit
               </a>
               <ul
-                className="absolute bg-white top-full left-0 hidden group-hover/menu:block w-[220px]"
+                className="absolute bg-white top-full left-0 hidden group-hover/menu:block w-[220px] z-10"
                 style={{ boxShadow: "0 1px 2px 2px rgba(0, 0, 0, 0.04)" }}
               >
                 <li className="group relative">
