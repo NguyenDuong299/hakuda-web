@@ -31,7 +31,7 @@ const Cart = () => {
           </div>
           <div className="flex flex-col lg:flex-row gap-5 mb-10">
             <div className="w-full lg:w-3/4">
-              <div className="overflow-x-scroll">
+              <div className="">
                 <table className="table-auto w-full">
                   <thead className="border">
                     <tr>
@@ -40,7 +40,7 @@ const Cart = () => {
                       </th>
                       <th className="py-2 max-w-[17%]">Đơn giá</th>
                       <th className="py-2 max-w-[16%]">Số lượng</th>
-                      <th className="py-2 max-w-[17%] hidden lg:block">
+                      <th className="py-2 max-w-[17%] hidden lg:table-cell">
                         Thành tiền
                       </th>
                     </tr>

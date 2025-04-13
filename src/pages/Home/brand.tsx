@@ -1,105 +1,71 @@
 import "swiper/css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import { Autoplay, Navigation } from "swiper/modules";
-
+import { Brands } from "../../types";
+import axios from "axios";
+import { Link } from "react-router-dom";
 const Brand = () => {
-  const mockData = [
-    {
-      nameBrand: "RG",
-      imageBrand: "hg.webp",
-    },
-    {
-      nameBrand: "RG",
-      imageBrand: "rg.webp",
-    },
-    {
-      nameBrand: "RG",
-      imageBrand: "mg.webp",
-    },
-    {
-      nameBrand: "RG",
-      imageBrand: "rg.webp",
-    },
-    {
-      nameBrand: "RG",
-      imageBrand: "rg.webp",
-    },
-    {
-      nameBrand: "RG",
-      imageBrand: "rg.webp",
-    },
-    {
-      nameBrand: "RG",
-      imageBrand: "rg.webp",
-    },
-    {
-      nameBrand: "RG",
-      imageBrand: "rg.webp",
-    },
-    {
-      nameBrand: "RG",
-      imageBrand: "rg.webp",
-    },
-    {
-      nameBrand: "RG",
-      imageBrand: "rg.webp",
-    },
-    {
-      nameBrand: "RG",
-      imageBrand: "rg.webp",
-    },
-    {
-      nameBrand: "RG",
-      imageBrand: "rg.webp",
-    },
-    {
-      nameBrand: "RG",
-      imageBrand: "rg.webp",
-    },
-  ];
+  const [brand, setBrand] = useState<Brands[]>([]);
+  useEffect(() => {
+    const fetchBrand = async () => {
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/brands`);
+        setBrand(res.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchBrand();
+  }, []);
   return (
-    <section className="mt-[30px]">
-      <div className="container px-5 mx-auto lg:px-0">
-        <div>
-          <Swiper
-            className="w-full rounded-full"
-            spaceBetween={0}
-            navigation={true}
-            autoplay={{ delay: 127000 }}
-            modules={[Autoplay, Navigation]}
-            breakpoints={{
-              320: {
-                slidesPerView: 2,
-              },
-              768: {
-                slidesPerView: 6,
-              },
-              1024: {
-                slidesPerView: 8,
-              },
-              1280: {
-                slidesPerView: 10,
-              },
-            }}
-          >
-            {mockData.map((item, index) => (
-              <SwiperSlide key={index}>
-                <a href="/" className="flex flex-col items-center group">
-                  <img
-                    src={`/images/${item.imageBrand}`}
-                    alt=""
-                    className="rounded-full border-2 border-black w-20 h-20 group-hover:rotate-45 transition duration-500"
-                  />
-                  <span>{item.nameBrand}</span>
-                </a>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </div>
-    </section>
+    <>
+      {brand.length > 0 && (
+        <section className="mt-[30px]">
+          <div className="container px-5 mx-auto lg:px-0">
+            <div>
+              <Swiper
+                className="w-full rounded-full"
+                spaceBetween={0}
+                navigation={true}
+                autoplay={{ delay: 127000 }}
+                modules={[Autoplay, Navigation]}
+                breakpoints={{
+                  320: {
+                    slidesPerView: 2,
+                  },
+                  768: {
+                    slidesPerView: 6,
+                  },
+                  1024: {
+                    slidesPerView: 8,
+                  },
+                  1280: {
+                    slidesPerView: 10,
+                  },
+                }}
+              >
+                {brand.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <Link to="/" className="flex flex-col items-center group">
+                      <img
+                        src={`/images/${item.image}`}
+                        alt={item.name}
+                        className="rounded-full border-2 border-black w-20 h-20 group-hover:rotate-45 transition duration-500"
+                      />
+                      <span className="mt-1 font-semibold group-hover:text-[#a3a3a3]">
+                        {item.name}
+                      </span>
+                    </Link>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          </div>
+        </section>
+      )}
+    </>
   );
 };
 export default Brand;

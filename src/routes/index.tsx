@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import DefaultLayout from "../layouts/default";
 import HomePage from "../pages/Home";
 import NewsPage from "../pages/News";
@@ -8,74 +8,28 @@ import ProductDetail from "../pages/ProductDetail";
 import Cart from "../pages/Cart";
 import Product from "../pages/Products";
 import NewDetail from "../pages/NewDetail";
+import Profile from "../pages/Account/Profile";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route
-        path="/"
         element={
           <DefaultLayout>
-            <HomePage />
+            <Outlet />
           </DefaultLayout>
         }
-      />
-      <Route
-        path="/news"
-        element={
-          <DefaultLayout>
-            <NewsPage />
-          </DefaultLayout>
-        }
-      />
-      <Route
-        path="/products"
-        element={
-          <DefaultLayout>
-            <Product />
-          </DefaultLayout>
-        }
-      />
-       <Route
-        path="/products/:slug"
-        element={
-          <DefaultLayout>
-            <ProductDetail />
-          </DefaultLayout>
-        }
-      />
-      <Route
-        path="/account/login"
-        element={
-          <DefaultLayout>
-            <Login />
-          </DefaultLayout>
-        }
-      />
-      <Route
-        path="/account/register"
-        element={
-          <DefaultLayout>
-            <Register />
-          </DefaultLayout>
-        }
-      />
-      <Route
-        path="/news/:slug"
-        element={
-          <DefaultLayout>
-            <NewDetail />
-          </DefaultLayout>
-        }
-      />
-      <Route
-        path="/cart"
-        element={
-          <DefaultLayout>
-            <Cart />
-          </DefaultLayout>
-        }
-      />
+      >
+        <Route path="/" element={<HomePage />} />
+        <Route path="/news" element={<NewsPage />} />
+        <Route path="/news/:slug" element={<NewDetail />} />
+        <Route path="/products" element={<Product />} />
+        <Route path="/products/:slug" element={<ProductDetail />} />
+        <Route path="/account/login" element={<Login />} />
+        <Route path="/account/register" element={<Register />} />
+        <Route path="/account/profile" element={<Profile />} />
+        <Route path="/cart" element={<Cart />} />
+      </Route>
     </Routes>
   );
 };

@@ -69,7 +69,7 @@ const Register = () => {
                 type="submit"
                 className="w-full text-white bg-black py-2 text-base font-bold"
               >
-                Đăng nhập
+                ĐĂNG KÝ
               </button>
             </form>
             <span className="text-base mt-5 block text-center">

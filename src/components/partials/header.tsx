@@ -243,21 +243,21 @@ const Header = () => {
         >
           <img src="/images/icons/bars-black.svg" className="h-[35px]" alt="" />
         </button>
-        <a
+        <Link
           className="w-1/4 max-w-[25%] flex justify-center py-[7.5px]"
-          href="/"
+          to="/"
         >
           <img src="/images/icons/home.svg" className="h-[35px]" alt="" />
-        </a>
-        <a
+        </Link>
+        <Link
           className="w-1/4 max-w-[25%] flex justify-center py-[7.5px]"
-          href="/"
+          to="/cart"
         >
           <img src="/images/icons/cart.svg" className="h-[35px]" alt="" />
-        </a>
+        </Link>
         <a
           className="w-1/4 max-w-[25%] flex justify-center py-[7.5px]"
-          href="/"
+          href="/account/profile"
         >
           <img src="/images/icons/profile.svg" className="h-[35px]" alt="" />
         </a>

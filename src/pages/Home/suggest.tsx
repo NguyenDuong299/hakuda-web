@@ -80,7 +80,7 @@ const Suggest = () => {
         >
           {mockData.map((item, index) => (
             <SwiperSlide key={index} className="group">
-              <Link to="/">
+              <Link className="overflow-hidden block" to="/">
                 <img src={`/images/${item.img}`} alt="" className="w-full group-hover:scale-110 duration-500" />
               </Link>
               <div className="mt-4">

@@ -37,14 +37,14 @@ const Login = () => {
                 type="submit"
                 className="w-full text-white bg-black py-2 text-base font-bold"
               >
-                Đăng nhập
+                ĐĂNG NHẬP
               </button>
             </form>
             <span className="text-base mt-5 block text-center">
               Bạn quên mật khẩu bấm{" "}
               <a
                 className="text-[#007bff] underline"
-                href="account/changepassword"
+                href="changepassword"
               >
                 vào đây
               </a>

@@ -194,13 +194,13 @@ const Product = () => {
                         className="h-[120px]"
                       />
                       <div>
-                        <a
-                          href="/"
-                          className="text-[15px] font-semibold line-clamp-2"
+                        <Link
+                          to="/"
+                          className="text-[15px] font-semibold line-clamp-2 hover:text-[#A3A3A3]"
                         >
                           Mô hình HGBDR 1/144 Nepteight Unit - Mô hình gundam
                           chính hãng Bandai Nhật Bản
-                        </a>
+                        </Link>
                         <span className="text-[#FD0000] font-bold text-base">
                           1.400.000đ
                         </span>
