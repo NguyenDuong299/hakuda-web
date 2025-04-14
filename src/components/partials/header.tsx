@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useAuthStore } from "../../store/authStore";
 import Overlay from "../ui/overlay";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
   const [active, setActive] = useState(false);
+  const navigate = useNavigate();
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  useEffect(() => {
+    const syncLogout = () => setToken(localStorage.getItem("token"));
+    window.addEventListener("storage", syncLogout);
+    return () => window.removeEventListener("storage", syncLogout);
+  }, [token, navigate]);
+
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    useAuthStore.getState().logout();
-    window.location.href = "/";
+    localStorage.setItem("token", "");
+    navigate("/");
   };
+
   return (
     <header>
       <div className="container mx-auto px-5 lg:px-0">
@@ -22,7 +30,7 @@ const Header = () => {
           <div className="flex gap-8 md:order-1 w-1/2 md:w-auto justify-end">
             <div className="items-center gap-[7px] hidden lg:flex">
               <img src="/images/icons/profile.svg" className="h-[34px]" alt="" />
-              {localStorage.getItem("token") ? (
+              {token ? (
                 <>
                   <div className="flex flex-col gap-0.5 leading-[18px]">
                     <div className="flex gap-1">

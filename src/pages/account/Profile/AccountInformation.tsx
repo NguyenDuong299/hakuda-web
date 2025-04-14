@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
-import { useAuthStore } from "../../../store/authStore";
+import { useNavigate } from "react-router-dom";
 
 const AccountInformation = () => {
-  const checkLogin = useAuthStore((state) => state.checkLogin);
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    checkLogin();
-    if(!isLoggedIn) window.location.href = "/";
-  }, [checkLogin]);
+    if (!token) {
+      navigate("/account/login");
+    }
+  }, [navigate, token]);
+
   return (
     <div className="mb-5">
       <h2 className="text-xl font-bold">THÔNG TIN TÀI KHOẢN</h2>

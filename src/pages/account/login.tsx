@@ -1,10 +1,9 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Breadcrumb from "../../components/ui/breadcrumb";
-import { useAuthStore } from "../../store/authStore";
 import { Users } from "../../types";
 
 const Login = () => {
@@ -14,8 +13,9 @@ const Login = () => {
     formState: { errors },
   } = useForm<Users>();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
   const onSubmit = async (formData: Users) => {
-    
     setLoading(true);
     try {
       const payload = {
@@ -23,14 +23,12 @@ const Login = () => {
         password: formData.password,
       };
       const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, payload);
-      const { token, user } = res.data;
+      const { token } = res.data;
       localStorage.setItem("token", token);
       toast.success("Đăng nhập thành công!");
-      useAuthStore.getState().login();
-      console.log(useAuthStore.getState().isLoggedIn);
-      // setTimeout(() => {
-      //   window.location.href = "/";
-      // }, 1000);
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     } catch (error: any) {
       console.error("Error fetching data:", error);
       toast.error(error?.response?.data?.message || "Đăng nhập thất bại, có lỗi xảy ra!");
@@ -38,6 +36,12 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [navigate, token]);
 
   return (
     <>
