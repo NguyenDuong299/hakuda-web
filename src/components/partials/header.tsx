@@ -1,80 +1,71 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useAuthStore } from "../../store/authStore";
 import Overlay from "../ui/overlay";
 const Header = () => {
   const [active, setActive] = useState(false);
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    useAuthStore.getState().logout();
+    window.location.href = "/";
+  };
   return (
     <header>
       <div className="container mx-auto px-5 lg:px-0">
         <div className="flex py-[18px] justify-between items-center flex-wrap">
           <div className="w-1/2 md:w-auto">
             <Link to="/">
-              <img
-                className="block h-12 md:h-16"
-                src="/images/logo.webp"
-                alt=""
-              />
+              <img className="block h-12 md:h-16" src="/images/logo.webp" alt="" />
             </Link>
           </div>
           <div className="flex gap-8 md:order-1 w-1/2 md:w-auto justify-end">
             <div className="items-center gap-[7px] hidden lg:flex">
-              <img
-                src="/images/icons/profile.svg"
-                className="h-[34px]"
-                alt=""
-              />
-              <div className="flex flex-col gap-0.5 leading-[18px]">
-                <div className="flex gap-1">
-                  <Link
-                    className="font-semibold hover:opacity-50"
-                    to="/account/login"
-                  >
-                    Đăng nhập
-                  </Link>
-                  <Link
-                    className="font-semibold hover:opacity-50"
-                    to="/account/register"
-                  >
-                    Đăng ký
-                  </Link>
+              <img src="/images/icons/profile.svg" className="h-[34px]" alt="" />
+              {localStorage.getItem("token") ? (
+                <>
+                  <div className="flex flex-col gap-0.5 leading-[18px]">
+                    <div className="flex gap-1">
+                      <Link className="font-semibold hover:opacity-50" to="/account/profile#account-info">
+                        Tài khoản
+                      </Link>
+                      <button className="font-semibold hover:opacity-50" onClick={handleLogout}>
+                        Đăng xuất
+                      </button>
+                    </div>
+                    <span className="text-[#666]">Tài khoản của bạn!</span>
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-col gap-0.5 leading-[18px]">
+                  <div className="flex gap-1">
+                    <Link className="font-semibold hover:opacity-50" to="/account/login">
+                      Đăng nhập
+                    </Link>
+                    <Link className="font-semibold hover:opacity-50" to="/account/register">
+                      Đăng ký
+                    </Link>
+                  </div>
+                  <span className="text-[#666]">Xin chào bạn!</span>
                 </div>
-                <span className="text-[#666]">Xin chào bạn!</span>
-              </div>
+              )}
             </div>
             <div className="flex items-center gap-[7px]">
               <div className="relative">
                 <Link to="/cart">
-                  <img
-                    src="/images/icons/cart.svg"
-                    className="h-[34px]"
-                    alt=""
-                  />
+                  <img src="/images/icons/cart.svg" className="h-[34px]" alt="" />
                 </Link>
-                <span className="bg-[#DB0015] rounded-full text-white absolute w-5 h-5 flex items-center justify-center left-0 -top-[3px]">
-                  0
-                </span>
+                <span className="bg-[#DB0015] rounded-full text-white absolute w-5 h-5 flex items-center justify-center left-0 -top-[3px]">0</span>
               </div>
-              <Link
-                to="/cart"
-                className="hover:opacity-50 leading-[18px] hidden lg:block"
-              >
+              <Link to="/cart" className="hover:opacity-50 leading-[18px] hidden lg:block">
                 Giỏ hàng <br /> của bạn
               </Link>
             </div>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/3">
             <form className="relative w-full">
-              <input
-                className="rounded border border-black pl-2.5 pr-11 py-[7px] w-full"
-                type="text"
-                placeholder="Tìm kiếm sản phẩm"
-              />
-              <img
-                src="/images/icons/search.svg"
-                className="h-[23px] absolute right-2.5 top-2"
-                alt=""
-              />
+              <input className="rounded border border-black pl-2.5 pr-11 py-[7px] w-full" type="text" placeholder="Tìm kiếm sản phẩm" />
+              <img src="/images/icons/search.svg" className="h-[23px] absolute right-2.5 top-2" alt="" />
             </form>
           </div>
         </div>
@@ -84,55 +75,34 @@ const Header = () => {
               <img src="/images/icons/bars.svg" className="h-[22px]" alt="" />
               DANH MỤC SẢN PHẨM
             </span>
-            <ul
-              className="bg-white absolute w-full hidden group-hover/menu:block z-10"
-              style={{ boxShadow: "0px 0px 20px 0px rgba(44,44,44,0.05)" }}
-            >
+            <ul className="bg-white absolute w-full hidden group-hover/menu:block z-10" style={{ boxShadow: "0px 0px 20px 0px rgba(44,44,44,0.05)" }}>
               <li className="border-b border-[#ebebeb] group">
-                <a
-                  className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block"
-                  href="/"
-                >
+                <a className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block" href="/">
                   TẤT CẢ SẢN PHẨM
                 </a>
               </li>
               <li className="border-b border-[#ebebeb] group">
-                <a
-                  className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block"
-                  href="/"
-                >
+                <a className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block" href="/">
                   MODEL KIT
                 </a>
               </li>
               <li className="border-b border-[#ebebeb] group">
-                <a
-                  className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block"
-                  href="/"
-                >
+                <a className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block" href="/">
                   METAL BUILD
                 </a>
               </li>
               <li className="border-b border-[#ebebeb] group">
-                <a
-                  className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block"
-                  href="/"
-                >
+                <a className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block" href="/">
                   FIGURE
                 </a>
               </li>
               <li className="border-b border-[#ebebeb] group">
-                <a
-                  className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block"
-                  href="/"
-                >
+                <a className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block" href="/">
                   DỤNG CỤ
                 </a>
               </li>
               <li className="border-b border-[#ebebeb] group">
-                <a
-                  className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block"
-                  href="/"
-                >
+                <a className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block" href="/">
                   PHỤ KIỆN
                 </a>
               </li>
@@ -140,71 +110,47 @@ const Header = () => {
           </div>
           <ul className="space-x-8 flex ml-2.5 border-t border-[#EBEBEB] flex-1">
             <li className="active group border-t border-black relative">
-              <a className="text-base font-bold py-3 block" href="/">
+              <Link className="text-base font-bold py-3 block" to="/">
                 Trang chủ
-              </a>
+              </Link>
             </li>
             <li className="relative group/menu">
               <a className="text-base font-bold py-3 block" href="/">
                 Model Kit
               </a>
-              <ul
-                className="absolute bg-white top-full left-0 hidden group-hover/menu:block w-[220px] z-10"
-                style={{ boxShadow: "0 1px 2px 2px rgba(0, 0, 0, 0.04)" }}
-              >
+              <ul className="absolute bg-white top-full left-0 hidden group-hover/menu:block w-[220px] z-10" style={{ boxShadow: "0 1px 2px 2px rgba(0, 0, 0, 0.04)" }}>
                 <li className="group relative">
-                  <a
-                    className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]"
-                    href="/"
-                  >
+                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
                     Bandai
                   </a>
                 </li>
                 <li className="group relative">
-                  <a
-                    className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]"
-                    href="/"
-                  >
+                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
                     Bandai
                   </a>
                 </li>
                 <li className="group relative">
-                  <a
-                    className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]"
-                    href="/"
-                  >
+                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
                     Bandai
                   </a>
                 </li>
                 <li className="group relative">
-                  <a
-                    className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]"
-                    href="/"
-                  >
+                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
                     Bandai
                   </a>
                 </li>
                 <li className="group relative">
-                  <a
-                    className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]"
-                    href="/"
-                  >
+                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
                     Bandai
                   </a>
                 </li>
                 <li className="group relative">
-                  <a
-                    className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]"
-                    href="/"
-                  >
+                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
                     Bandai
                   </a>
                 </li>
                 <li className="group relative">
-                  <a
-                    className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]"
-                    href="/"
-                  >
+                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
                     Bandai
                   </a>
                 </li>
@@ -233,48 +179,24 @@ const Header = () => {
           </ul>
         </div>
       </div>
-      <div
-        className="lg:hidden flex fixed bottom-0 w-full bg-white z-10"
-        style={{ boxShadow: "0 0 10px #c9c9c9" }}
-      >
-        <button
-          onClick={() => setActive(true)}
-          className="w-1/4 max-w-[25%] flex justify-center py-[7.5px]"
-        >
+      <div className="lg:hidden flex fixed bottom-0 w-full bg-white z-10" style={{ boxShadow: "0 0 10px #c9c9c9" }}>
+        <button onClick={() => setActive(true)} className="w-1/4 max-w-[25%] flex justify-center py-[7.5px]">
           <img src="/images/icons/bars-black.svg" className="h-[35px]" alt="" />
         </button>
-        <Link
-          className="w-1/4 max-w-[25%] flex justify-center py-[7.5px]"
-          to="/"
-        >
+        <Link className="w-1/4 max-w-[25%] flex justify-center py-[7.5px]" to="/">
           <img src="/images/icons/home.svg" className="h-[35px]" alt="" />
         </Link>
-        <Link
-          className="w-1/4 max-w-[25%] flex justify-center py-[7.5px]"
-          to="/cart"
-        >
+        <Link className="w-1/4 max-w-[25%] flex justify-center py-[7.5px]" to="/cart">
           <img src="/images/icons/cart.svg" className="h-[35px]" alt="" />
         </Link>
-        <a
-          className="w-1/4 max-w-[25%] flex justify-center py-[7.5px]"
-          href="/account/profile"
-        >
+        <a className="w-1/4 max-w-[25%] flex justify-center py-[7.5px]" href="/account/profile">
           <img src="/images/icons/profile.svg" className="h-[35px]" alt="" />
         </a>
       </div>
-      <div
-        className={`w-4/5 bg-white fixed top-0 h-screen z-20 lg:hidden transition-all duration-300 ${
-          active ? "left-0" : "-left-full"
-        }`}
-      >
+      <div className={`w-4/5 bg-white fixed top-0 h-screen z-20 lg:hidden transition-all duration-300 ${active ? "left-0" : "-left-full"}`}>
         <div style={{ boxShadow: "0px 0px 20px 0px rgba(44,44,44,0.05)" }}>
           <span className="text-xs font-bold bg-black text-white flex items-center gap-2 p-3">
-            <img
-              onClick={() => setActive(false)}
-              src="/images/icons/bars.svg"
-              className="h-[22px]"
-              alt=""
-            />
+            <img onClick={() => setActive(false)} src="/images/icons/bars.svg" className="h-[22px]" alt="" />
             DANH MỤC SẢN PHẨM
           </span>
           <ul>

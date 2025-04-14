@@ -4,40 +4,14 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Breadcrumb from "../../components/ui/breadcrumb";
-import { useAuthStore } from "../../store/authStore";
 import { Users } from "../../types";
 
-const Login = () => {
+const ForgotPassword = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Users>();
-  const [loading, setLoading] = useState(false);
-  const onSubmit = async (formData: Users) => {
-    
-    setLoading(true);
-    try {
-      const payload = {
-        email: formData.email,
-        password: formData.password,
-      };
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, payload);
-      const { token, user } = res.data;
-      localStorage.setItem("token", token);
-      toast.success("Đăng nhập thành công!");
-      useAuthStore.getState().login();
-      console.log(useAuthStore.getState().isLoggedIn);
-      // setTimeout(() => {
-      //   window.location.href = "/";
-      // }, 1000);
-    } catch (error: any) {
-      console.error("Error fetching data:", error);
-      toast.error(error?.response?.data?.message || "Đăng nhập thất bại, có lỗi xảy ra!");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <>
@@ -45,32 +19,22 @@ const Login = () => {
       <div className="flex justify-center mt-[30px] mb-10">
         <div className="w-[900px] max-w-[90%] flex justify-center border border-black border-r-0">
           <div className="p-[30px] w-full md:w-2/3">
-            <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-2xl w-full space-y-4">
-              <h2 className="text-xl font-bold">Đăng nhập tài khoản</h2>
-
+            <form className="bg-white rounded-2xl w-full space-y-4">
+              <h2 className="text-xl font-bold mb-2">Quên mật khẩu</h2>
+              <span>Chúng tôi sẽ gửi cho bạn một email để kích hoạt việc đặt lại mật khẩu.</span>
               <div>
                 <label className="block mb-2 text-[15px] font-bold">Email</label>
                 <input type="email" placeholder="Email" className="w-full border border-[#EAEBF3] p-2" {...register("email", { required: "Email không được bỏ trống" })} />
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
               </div>
 
-              <div>
-                <label className="block mb-2 text-[15px] font-bold">Mật khẩu</label>
-                <input type="password" placeholder="Mật khẩu" className="w-full border border-[#EAEBF3] p-2" {...register("password", { required: "Mật khẩu không được bỏ trống" })} />
-                {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
-              </div>
-
-              <button type="submit" className={`w-full text-white bg-black py-2 text-base font-bold rounded` + (loading ? " opacity-50 cursor-not-allowed" : "")} disabled={loading}>
+              <button type="submit" className={`w-full text-white bg-black py-2 text-base font-bold rounded`}>
                 ĐĂNG NHẬP
               </button>
-            </form>
-
-            <span className="text-base mt-5 block text-center">
-              Bạn quên mật khẩu bấm{" "}
-              <Link className="text-[#007bff] underline" to="/account/forgot-password">
-                vào đây
+              <Link to="/account/login" className="w-full border border-black py-2 text-base font-bold rounded block text-center">
+                HỦY
               </Link>
-            </span>
+            </form>
           </div>
 
           <div className="bg-black text-white p-[30px] w-full md:w-1/3">
@@ -97,4 +61,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;
