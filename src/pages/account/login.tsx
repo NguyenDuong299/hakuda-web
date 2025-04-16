@@ -1,10 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Breadcrumb from "../../components/ui/breadcrumb";
 import { Users } from "../../types";
+import { useAuth } from "../../store/authStore";
+import Loading from "../../components/ui/loading";
 
 const Login = () => {
   const {
@@ -12,11 +14,12 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Users>();
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const { setUser } = useAuth();
+  
   const onSubmit = async (formData: Users) => {
-    setLoading(true);
+    setIsLoading(true);
     try {
       const payload = {
         email: formData.email,
@@ -25,6 +28,7 @@ const Login = () => {
       const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, payload);
       const { token } = res.data;
       localStorage.setItem("token", token);
+      setUser(res.data);
       toast.success("Đăng nhập thành công!");
       setTimeout(() => {
         navigate("/");
@@ -33,15 +37,13 @@ const Login = () => {
       console.error("Error fetching data:", error);
       toast.error(error?.response?.data?.message || "Đăng nhập thất bại, có lỗi xảy ra!");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (token) {
-      navigate("/");
-    }
-  }, [navigate, token]);
+  const { user, loading } = useAuth();
+  if (loading) return <Loading />;
+  if (user) navigate("/");
 
   return (
     <>
@@ -51,7 +53,6 @@ const Login = () => {
           <div className="p-[30px] w-full md:w-2/3">
             <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-2xl w-full space-y-4">
               <h2 className="text-xl font-bold">Đăng nhập tài khoản</h2>
-
               <div>
                 <label className="block mb-2 text-[15px] font-bold">Email</label>
                 <input type="email" placeholder="Email" className="w-full border border-[#EAEBF3] p-2" {...register("email", { required: "Email không được bỏ trống" })} />
@@ -64,7 +65,7 @@ const Login = () => {
                 {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
               </div>
 
-              <button type="submit" className={`w-full text-white bg-black py-2 text-base font-bold rounded` + (loading ? " opacity-50 cursor-not-allowed" : "")} disabled={loading}>
+              <button type="submit" className={`w-full text-white bg-black py-2 text-base font-bold rounded` + (isLoading ? " opacity-50 cursor-not-allowed" : "")} disabled={isLoading}>
                 ĐĂNG NHẬP
               </button>
             </form>

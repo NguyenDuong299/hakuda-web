@@ -1,16 +1,16 @@
 import { create } from "zustand";
+import { Users } from "../types";
 
-interface AuthState {
-  isLoggedIn: boolean;
-  checkLogin: () => void;
-}
+type AuthState = {
+  user: Users | null;
+  loading: boolean;
+  setUser: (user: Users | null) => void;
+  setLoading: (loading: boolean) => void;
+};
 
-export const useAuthStore = create<AuthState>((set) => ({
-  isLoggedIn: false,
-  checkLogin: () => {
-    const token = localStorage.getItem("token");
-    set({
-      isLoggedIn: Boolean(token),
-    });
-  },
+export const useAuth = create<AuthState>((set) => ({
+  user: null,
+  loading: true,
+  setUser: (user) => set({ user }),
+  setLoading: (loading) => set({ loading }),
 }));

@@ -2,22 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Overlay from "../ui/overlay";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../store/authStore";
+import { toast } from "react-toastify";
 const Header = () => {
   const [active, setActive] = useState(false);
-  const navigate = useNavigate();
   const [token, setToken] = useState(localStorage.getItem("token"));
-
+  const navigate = useNavigate();
+  const { user, setUser } = useAuth();
+  
+  // Đồng bộ trạng thái token nếu có thay đổi từ tab khác
   useEffect(() => {
     const syncLogout = () => setToken(localStorage.getItem("token"));
     window.addEventListener("storage", syncLogout);
     return () => window.removeEventListener("storage", syncLogout);
-  }, [token, navigate]);
+  }, [token]);
 
+  // Xử lý đăng xuất
   const handleLogout = () => {
     localStorage.setItem("token", "");
+    setUser(null);
     navigate("/");
+    toast.success("Đăng xuất thành công!");
   };
-
   return (
     <header>
       <div className="container mx-auto px-5 lg:px-0">
@@ -30,7 +36,7 @@ const Header = () => {
           <div className="flex gap-8 md:order-1 w-1/2 md:w-auto justify-end">
             <div className="items-center gap-[7px] hidden lg:flex">
               <img src="/images/icons/profile.svg" className="h-[34px]" alt="" />
-              {token ? (
+              {user ? (
                 <>
                   <div className="flex flex-col gap-0.5 leading-[18px]">
                     <div className="flex gap-1">

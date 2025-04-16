@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import AccountInformation from "./AccountInformation";
 import ChangePassword from "./ChangePassword";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../store/authStore";
+import { toast } from "react-toastify";
 const Profile = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(1);
+  const { setUser } = useAuth();
+
   useEffect(() => {
     const hash = window.location.hash;
     if (hash === "#change-password") {
@@ -11,6 +17,7 @@ const Profile = () => {
       setActiveTab(1);
     }
   }, []);
+
   const handleTabChange = (tab: number) => {
     setActiveTab(tab);
     if (tab === 1) {
@@ -22,7 +29,9 @@ const Profile = () => {
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
-    window.location.href = "/";
+    setUser(null);
+    toast.success("Đăng xuất thành công!");
+    navigate("/");
   };
 
   return (
