@@ -15,3 +15,11 @@ export interface Users {
   password: string;
   confirmPassword: string;
 }
+export interface Posts{
+  id: number;
+  title: string;
+  content: string;
+  thumbnail: string;
+  author: string;
+  hot: boolean;
+}
