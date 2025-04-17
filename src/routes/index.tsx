@@ -1,5 +1,5 @@
 import { Routes, Route, Outlet } from "react-router-dom";
-import DefaultLayout from "../layouts/default";
+import DefaultLayout from "../components/partials/default";
 import HomePage from "../pages/Home";
 import NewsPage from "../pages/News";
 import Login from "../pages/Account/login";
@@ -30,7 +30,7 @@ const AppRoutes = () => {
         <Route path="/account/register" element={<Register />} />
         <Route path="/account/profile" element={<Profile />} />
         <Route path="/account/forgot-password" element={<ForgotPassword />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<Cart />} />{" "}
       </Route>
     </Routes>
   );
