@@ -11,7 +11,7 @@ const Brand = () => {
   useEffect(() => {
     const fetchBrand = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/brands`);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/brands`);
         setBrand(res.data);
       } catch (error) {
         console.error("Error fetching data:", error);

@@ -43,4 +43,5 @@ const FeaturedProduct = () => {
     </>
   );
 };
+
 export default FeaturedProduct;

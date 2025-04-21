@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Breadcrumb from "../../components/ui/breadcrumb";
-import FeaturedNews from "../../components/ui/news/featurednews";
+import FeaturedNews from "../News/FeaturedNews";
 import FeaturedProduct from "../News/FeaturedProduct";
+import { useParams } from "react-router-dom";
+import { Posts } from "../../types";
+import axios from "axios";
+import { format } from "date-fns";
+import Parser from "html-react-parser";
 
 const NewDetail = () => {
+  const { id } = useParams();
+  const [post, setPost] = useState<Posts | null>(null);
+
+  const fetchPost = async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/posts/${id}`);
+      setPost(res.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    if (id) {
+      fetchPost();
+    }
+  }, [id]);
+
+  const decodeHtml = (html: string) => {
+    let str = html;
+    str = str.replace(/&lt;/g, "<");
+    str = str.replace(/&gt;/g, ">");
+    str = str.replace(/&quot;/g, '"');
+    str = str.replace(/&#39;/g, "'");
+    str = str.replace(/&amp;/g, "&");
+    return str;
+  };
   return (
     <section>
       <Breadcrumb />
@@ -16,28 +47,13 @@ const NewDetail = () => {
             </div>
           </div>
           <div className="w-full lg:w-3/4">
-            <h2 className="text-2xl font-extrabold uppercase">
-              Review mô hình Robo Quýt Kiếm Sĩ - Những cải tiến đáng kể bạn cần
-              biết?
-            </h2>
+            <h2 className="text-2xl font-extrabold uppercase">{post?.title}</h2>
             <span className="font-normal">
-              Người đăng: <strong>Hakuda</strong>
+              Người đăng: <strong>{post?.author}</strong>
             </span>{" "}
-            | <span className="font-normal">12/01/2025</span>
-            <img
-              className="w-full mt-[30px]"
-              src="/images/review-mo-hinh-robo-trai-cay-quyt-kiem-si.webp"
-              alt=""
-            />
-            <div className="">
-              <p>
-                Như vậy là sau một thời gian dài chờ đợi thì cuối cùng mẫu mô
-                hình Quýt Kiếm Sĩ đã chính thức ra mắt. Với sự xuất hiện của
-                Quýt Ú, bộ ba “Tam Khách Trái Cây” cuối cùng cũng đã tập hợp đầy
-                đủ, khiến không ít anh em phải thổn thức với những ký ức tuổi
-                thơ khó quên ngày nào.
-              </p>
-            </div>
+            | <span className="text-gray-500">{post?.updated_at ? format(new Date(post.updated_at), "dd/MM/yyyy") : ""}</span>
+            <img className="w-full mt-[30px]" src={`${process.env.REACT_APP_API_URL}/${post?.thumbnail}`} alt="" />
+            <div className="">{post?.content && Parser(decodeHtml(post.content))}</div>
           </div>
         </div>
       </div>

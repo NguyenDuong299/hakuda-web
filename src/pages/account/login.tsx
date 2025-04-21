@@ -25,7 +25,7 @@ const Login = () => {
         email: formData.email,
         password: formData.password,
       };
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, payload);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, payload);
       const { token } = res.data;
       localStorage.setItem("token", token);
       setUser(res.data);

@@ -33,7 +33,7 @@ const Register = () => {
         password: formData.password,
         confirmPassword: formData.confirmPassword,
       };
-      await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, payload);
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/register`, payload);
       toast.success("Đăng ký thành công!");
       setTimeout(() => {
         navigate("/account/login");
