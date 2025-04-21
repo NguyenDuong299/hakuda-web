@@ -24,16 +24,14 @@ const NewsList = () => {
           post.map((item, index) => (
             <div key={index} className="w-full md:w-1/2 lg:w-1/3 px-2.5 mb-[30px]">
               <Link to="/">
-                <img src={item.thumbnail} alt={item.title} />
+                <img src={`http://localhost:5173/${item.thumbnail}`} alt={item.title} />
               </Link>
               <div className="flex flex-col gap-0.5 mt-2.5">
                 <Link to="/" className="font-bold hover:text-[#a3a3a3]">
                   {item.title}
                 </Link>
                 <span>05/03/2025</span>
-                <p className="line-clamp-2">
-                  {item.content}
-                </p>
+                <p className="line-clamp-2">{item.content}</p>
               </div>
             </div>
           ))}
