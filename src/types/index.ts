@@ -4,6 +4,12 @@ export interface Brands {
   description: string;
   image: string;
 }
+export interface Banners {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+}
 export interface Users {
   id: string;
   firstName: string;
