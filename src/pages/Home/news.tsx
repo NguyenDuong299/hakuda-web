@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const News = () => {
+  const [news, setNews] = useState()
   return (
     <section className="mt-[30px]">
       <div className="container px-5 lg:px-0 mx-auto">

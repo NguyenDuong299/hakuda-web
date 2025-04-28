@@ -31,3 +31,23 @@ export interface Posts {
   created_at: Date;
   updated_at: string;
 }
+export interface Products {
+  id: number;
+  code: string;
+  name: string;
+  description: string;
+  detail: string;
+  price: number;
+  stock_quanlity: number;
+  isDiscount: boolean;
+  hot: boolean;
+  brand_id: number;
+  product_line_id: number;
+  image: ProductImages[];
+  createdAt: string;
+  updatedAt: string;
+}
+export interface ProductImages {
+  image_url: string;
+  isThumbnail: boolean;
+}

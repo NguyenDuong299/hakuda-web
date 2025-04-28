@@ -1,59 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
+import { Products } from "../../types";
+import axios from "axios";
 
 const Product = () => {
-  const recentProducts = [
-    {
-      productName:
-        "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
-      productImg: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
-      price: "1.400.000",
-    },
-    {
-      productName:
-        "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
-      productImg: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
-      price: "1.400.000",
-    },
-    {
-      productName:
-        "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
-      productImg: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
-      price: "1.400.000",
-    },
-    {
-      productName:
-        "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
-      productImg: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
-      price: "1.400.000",
-    },
-    {
-      productName:
-        "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
-      productImg: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
-      price: "1.400.000",
-    },
-    {
-      productName:
-        "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
-      productImg: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
-      price: "1.400.000",
-    },
-  ];
+  const [newProduct, setNewProduct] = useState<Products[]>([]);
+  const [hotProduct, setHotProduct] = useState<Products[]>([]);
+  const fetchNewProduct = async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/filter/new`);
+      setNewProduct(res.data.products);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const fetchHotProduct = async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/filter/hot`);
+      setHotProduct(res.data.products);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchNewProduct();
+    fetchHotProduct();
+  }, []);
   return (
     <section className="mt-[30px]">
       <div className="container px-5 lg:px-0 mx-auto">
         <div className="flex flex-col lg:flex-row gap-5">
           <div className="w-full lg:w-1/4">
-            <img
-              src="/images/ads.webp"
-              alt=""
-              className="w-full h-auto object-cover"
-            />
+            <img src="/images/ads.webp" alt="" className="w-full h-auto object-cover" />
           </div>
           <div className="w-full lg:w-3/4">
             <div className="">
@@ -101,194 +83,108 @@ const Product = () => {
                   modules={[Navigation]}
                   className="swiperProduct relative"
                 >
-                  {recentProducts.map((item, index) => (
+                  {newProduct.map((item, index) => (
                     <SwiperSlide key={index} className="group">
-                      <Link to="/" className="block overflow-hidden">
-                        <img
-                          src={`images/${item.productImg}`}
-                          alt=""
-                          className="w-full group-hover:scale-110 duration-500"
-                        />
+                      <Link to={`/products/${item.id}`} className="block overflow-hidden">
+                        {item.image &&
+                          item.image.map((item, index) => (
+                            <>
+                              {item.isThumbnail && item.image_url && (
+                                <img
+                                  key={index}
+                                  src={`${process.env.REACT_APP_API_URL}/public/${item.image_url}`}
+                                  alt={item.image_url}
+                                  className="w-full h-auto object-cover group-hover:scale-105 transition-all duration-500"
+                                />
+                              )}
+                            </>
+                          ))}
                       </Link>
                       <div className="mt-4">
                         <h3 className="text-[15px] font-semibold truncate">
-                          <Link className="hover:text-[#A3A3A3]" to="/">{item.productName}</Link>
+                          <Link className="hover:text-[#A3A3A3]" to={`/products/${item.id}`}>
+                            {item.name}
+                          </Link>
                         </h3>
-                        <span className="text-[#FD0000] font-bold text-base">
-                          {item.price}đ
-                        </span>
+                        <span className="text-[#FD0000] font-bold text-base">{Number(item.price).toLocaleString("vi-VN")} ₫</span>
                       </div>
                     </SwiperSlide>
                   ))}
                 </Swiper>
               </div>
             </div>
-            <div className="bg-[#F91111] px-2.5 rounded-[7px] pt-6 pb-2.5 mt-5">
-              <div className="flex items-center justify-between">
-                <div className="md:flex items-center gap-4 ">
-                  <a
-                    className="text-2xl font-extrabold text-white text-nowrap"
-                    href="/"
-                  >
-                    GIÁ TỐT HÔM NAY
-                  </a>
-                  <div className="flex items-center gap-2">
-                    <span className="bg-[#FF9473] text-white px-3 py-1.5 rounded text-lg">
-                      22
-                    </span>
-                    <span className="text-[#FF9473]">:</span>
-                    <span className="bg-[#FF9473] text-white px-3 py-1.5 rounded text-lg">
-                      05
-                    </span>
-                    <span className="text-[#FF9473]">:</span>
-                    <span className="bg-[#FF9473] text-white px-3 py-1.5 rounded text-lg">
-                      22
-                    </span>
+            {hotProduct.length > 0 && (
+              <div className="bg-[#F91111] px-2.5 rounded-[7px] pt-6 pb-2.5 mt-5">
+                <div className="flex items-center justify-between">
+                  <div className="md:flex items-center gap-4 ">
+                    <h2 className="text-2xl font-extrabold text-white text-nowrap">SẢN PHẨM NỔI BẬT</h2>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      className="prev-btn-2 bg-white w-[30px] h-[30px] rounded flex items-center justify-center"
+                      style={{
+                        boxShadow: "0 1px 12px 0 rgba(0,0,0,0.12)",
+                      }}
+                    >
+                      <img className="h-4" src="/images/icons/left.svg" alt="" />
+                    </button>
+                    <button
+                      className="next-btn-2 bg-white w-[30px] h-[30px] rounded flex items-center justify-center"
+                      style={{
+                        boxShadow: "0 1px 12px 0 rgba(0,0,0,0.12)",
+                      }}
+                    >
+                      <img className="h-4" src="/images/icons/right.svg" alt="" />
+                    </button>
                   </div>
                 </div>
-                <div className="flex gap-2">
-                  <button
-                    className="prev-btn-2 bg-white w-[30px] h-[30px] rounded flex items-center justify-center"
-                    style={{
-                      boxShadow: "0 1px 12px 0 rgba(0,0,0,0.12)",
+                <div className="">
+                  <Swiper
+                    spaceBetween={10}
+                    navigation={{
+                      nextEl: ".next-btn-2",
+                      prevEl: ".prev-btn-2",
                     }}
-                  >
-                    <img className="h-4" src="/images/icons/left.svg" alt="" />
-                  </button>
-                  <button
-                    className="next-btn-2 bg-white w-[30px] h-[30px] rounded flex items-center justify-center"
-                    style={{
-                      boxShadow: "0 1px 12px 0 rgba(0,0,0,0.12)",
+                    breakpoints={{
+                      320: {
+                        slidesPerView: 1,
+                      },
+                      768: {
+                        slidesPerView: 2,
+                      },
+                      1024: {
+                        slidesPerView: 3,
+                      },
                     }}
+                    modules={[Navigation]}
+                    className="swiperProduct relative mt-4"
                   >
-                    <img className="h-4" src="/images/icons/right.svg" alt="" />
-                  </button>
+                    {hotProduct.map((item, index) => (
+                      <SwiperSlide>
+                        <div key={index} className="flex bg-white p-2.5 rounded gap-2.5">
+                          {item.image &&
+                            item.image.map((item, index) => (
+                              <>
+                                {item.isThumbnail && item.image_url && <img key={index} src={`${process.env.REACT_APP_API_URL}/public/${item.image_url}`} alt={item.image_url} className="h-[120px]" />}
+                              </>
+                            ))}
+                          <div>
+                            <Link to={`produts/${item.id}`} className="text-[15px] font-semibold line-clamp-2 hover:text-[#A3A3A3]">
+                              {item.name}
+                            </Link>
+                            <span className="text-[#FD0000] font-bold text-base">{Number(item.price).toLocaleString("vi-VN")} ₫</span>
+                            <h4 className="text-xs">Đang cháy hàng</h4>
+                            <div className="w-full rounded-full bg-[#ebebeb] h-2.5 mt-2 relative">
+                              <div className="absolute bg-[#F91111] h-2.5 rounded-full w-[80%]"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
                 </div>
               </div>
-              <div className="">
-                <Swiper
-                  spaceBetween={10}
-                  navigation={{
-                    nextEl: ".next-btn-2",
-                    prevEl: ".prev-btn-2",
-                  }}
-                  breakpoints={{
-                    320: {
-                      slidesPerView: 1,
-                    },
-                    768: {
-                      slidesPerView: 2,
-                    },
-                    1024: {
-                      slidesPerView: 3,
-                    },
-                  }}
-                  modules={[Navigation]}
-                  className="swiperProduct relative mt-4"
-                >
-                  <SwiperSlide>
-                    <div className="flex bg-white p-2.5 rounded gap-2.5">
-                      <img
-                        src="/images/b9211a26-dc96-4662-89ea-38f85e5cae40-1735181035947.jpg"
-                        alt=""
-                        className="h-[120px]"
-                      />
-                      <div>
-                        <Link
-                          to="/"
-                          className="text-[15px] font-semibold line-clamp-2 hover:text-[#A3A3A3]"
-                        >
-                          Mô hình HGBDR 1/144 Nepteight Unit - Mô hình gundam
-                          chính hãng Bandai Nhật Bản
-                        </Link>
-                        <span className="text-[#FD0000] font-bold text-base">
-                          1.400.000đ
-                        </span>
-                        <h4 className="text-xs">Đang cháy hàng</h4>
-                        <div className="w-full rounded-full bg-[#ebebeb] h-2.5 mt-2 relative">
-                          <div className="absolute bg-[#F91111] h-2.5 rounded-full w-[80%]"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="flex bg-white p-2.5 rounded gap-2.5">
-                      <img
-                        src="/images/b9211a26-dc96-4662-89ea-38f85e5cae40-1735181035947.jpg"
-                        alt=""
-                        className="h-[120px]"
-                      />
-                      <div>
-                        <a
-                          href="/"
-                          className="text-[15px] font-semibold line-clamp-2"
-                        >
-                          Mô hình HGBDR 1/144 Nepteight Unit - Mô hình gundam
-                          chính hãng Bandai Nhật Bản
-                        </a>
-                        <span className="text-[#FD0000] font-bold text-base">
-                          1.400.000đ
-                        </span>
-                        <h4 className="text-xs">Đang cháy hàng</h4>
-                        <div className="w-full rounded-full bg-[#ebebeb] h-2.5 mt-2 relative">
-                          <div className="absolute bg-[#F91111] h-2.5 rounded-full w-[80%]"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="flex bg-white p-2.5 rounded gap-2.5">
-                      <img
-                        src="/images/b9211a26-dc96-4662-89ea-38f85e5cae40-1735181035947.jpg"
-                        alt=""
-                        className="h-[120px]"
-                      />
-                      <div>
-                        <a
-                          href="/"
-                          className="text-[15px] font-semibold line-clamp-2"
-                        >
-                          Mô hình HGBDR 1/144 Nepteight Unit - Mô hình gundam
-                          chính hãng Bandai Nhật Bản
-                        </a>
-                        <span className="text-[#FD0000] font-bold text-base">
-                          1.400.000đ
-                        </span>
-                        <h4 className="text-xs">Đang cháy hàng</h4>
-                        <div className="w-full rounded-full bg-[#ebebeb] h-2.5 mt-2 relative">
-                          <div className="absolute bg-[#F91111] h-2.5 rounded-full w-[80%]"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="flex bg-white p-2.5 rounded gap-2.5">
-                      <img
-                        src="/images/b9211a26-dc96-4662-89ea-38f85e5cae40-1735181035947.jpg"
-                        alt=""
-                        className="h-[120px]"
-                      />
-                      <div>
-                        <a
-                          href="/"
-                          className="text-[15px] font-semibold line-clamp-2"
-                        >
-                          Mô hình HGBDR 1/144 Nepteight Unit - Mô hình gundam
-                          chính hãng Bandai Nhật Bản
-                        </a>
-                        <span className="text-[#FD0000] font-bold text-base">
-                          1.400.000đ
-                        </span>
-                        <h4 className="text-xs">Đang cháy hàng</h4>
-                        <div className="w-full rounded-full bg-[#ebebeb] h-2.5 mt-2 relative">
-                          <div className="absolute bg-[#F91111] h-2.5 rounded-full w-[80%]"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                </Swiper>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
