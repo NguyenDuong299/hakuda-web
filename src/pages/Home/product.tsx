@@ -40,9 +40,7 @@ const Product = () => {
           <div className="w-full lg:w-3/4">
             <div className="">
               <div className="flex justify-between items-center">
-                <a className="font-extrabold text-2xl" href="/">
-                  SẢN PHẨM MỚI VỀ
-                </a>
+                <h2 className="font-extrabold text-2xl">SẢN PHẨM MỚI VỀ</h2>
                 <div className="flex items-center gap-1.5">
                   <button
                     className="prev-btn bg-white w-[30px] h-[30px] rounded flex items-center justify-center"
@@ -86,19 +84,17 @@ const Product = () => {
                   {newProduct.map((item, index) => (
                     <SwiperSlide key={index} className="group">
                       <Link to={`/products/${item.id}`} className="block overflow-hidden">
-                        {item.image &&
-                          item.image.map((item, index) => (
-                            <>
-                              {item.isThumbnail && item.image_url && (
-                                <img
-                                  key={index}
-                                  src={`${process.env.REACT_APP_API_URL}/public/${item.image_url}`}
-                                  alt={item.image_url}
-                                  className="w-full h-auto object-cover group-hover:scale-105 transition-all duration-500"
-                                />
-                              )}
-                            </>
-                          ))}
+                        {item.images &&
+                          item.images
+                            .filter((img) => img.isThumbnail)
+                            .map((img, index) => (
+                              <img
+                                key={index}
+                                src={`${process.env.REACT_APP_API_URL}/${img.image_url}`}
+                                alt={img.image_url}
+                                className="w-full h-auto object-cover group-hover:scale-105 transition-all duration-500"
+                              />
+                            ))}
                       </Link>
                       <div className="mt-4">
                         <h3 className="text-[15px] font-semibold truncate">
@@ -162,13 +158,13 @@ const Product = () => {
                     {hotProduct.map((item, index) => (
                       <SwiperSlide>
                         <div key={index} className="flex bg-white p-2.5 rounded gap-2.5">
-                          {item.image &&
-                            item.image.map((item, index) => (
-                              <>
-                                {item.isThumbnail && item.image_url && <img key={index} src={`${process.env.REACT_APP_API_URL}/public/${item.image_url}`} alt={item.image_url} className="h-[120px]" />}
-                              </>
-                            ))}
-                          <div>
+                          <Link to={`/products/${item.id}`} className="block overflow-hidden">
+                            {item.images &&
+                              item.images
+                                .filter((img) => img.isThumbnail)
+                                .map((img, index) => <img key={index} src={`${process.env.REACT_APP_API_URL}/${img.image_url}`} alt={img.image_url} className="h-[120px]" />)}
+                          </Link>
+                          <div className="flex-1">
                             <Link to={`produts/${item.id}`} className="text-[15px] font-semibold line-clamp-2 hover:text-[#A3A3A3]">
                               {item.name}
                             </Link>

@@ -5,44 +5,37 @@ import Pagination from "../../components/ui/pagination";
 const ProductList = () => {
   const mockData = [
     {
-      nameProduct:
-        "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
+      nameProduct: "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
       price: "200000",
       imgProduct: "5c0b9325-21aa-4108-ad4f-6584a1926abe.webp",
     },
     {
-      nameProduct:
-        "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
+      nameProduct: "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
       price: "200000",
       imgProduct: "5c0b9325-21aa-4108-ad4f-6584a1926abe.webp",
     },
     {
-      nameProduct:
-        "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
+      nameProduct: "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
       price: "200000",
       imgProduct: "5c0b9325-21aa-4108-ad4f-6584a1926abe.webp",
     },
     {
-      nameProduct:
-        "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
+      nameProduct: "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
       price: "200000",
       imgProduct: "5c0b9325-21aa-4108-ad4f-6584a1926abe.webp",
     },
     {
-      nameProduct:
-        "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
+      nameProduct: "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
       price: "200000",
       imgProduct: "5c0b9325-21aa-4108-ad4f-6584a1926abe.webp",
     },
     {
-      nameProduct:
-        "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
+      nameProduct: "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
       price: "200000",
       imgProduct: "5c0b9325-21aa-4108-ad4f-6584a1926abe.webp",
     },
     {
-      nameProduct:
-        "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
+      nameProduct: "Bộ phụ kiện Figure Rise - Jet Effect (Clear Blue) - Chính hãng Bandai Nhật Bản",
       price: "200000",
       imgProduct: "5c0b9325-21aa-4108-ad4f-6584a1926abe.webp",
     },
@@ -72,9 +65,7 @@ const ProductList = () => {
                 <Link className="text-base font-bold line-clamp-1 hover:text-[#a3a3a3]" to="/">
                   {item.nameProduct}
                 </Link>
-                <span className="text-[#fd0000] font-bold">
-                  {Number(item.price).toLocaleString("vi-VN")}₫
-                </span>
+                <span className="text-[#fd0000] font-bold">{Number(item.price).toLocaleString("vi-VN")}₫</span>
               </div>
             </div>
           ))}

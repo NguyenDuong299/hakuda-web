@@ -12,7 +12,6 @@ const Banner = () => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/banners`);
       setBanner(res.data.banners);
-      console.log(res.data.banners);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -32,7 +31,7 @@ const Banner = () => {
                 {banner.map((item, index) => (
                   <SwiperSlide key={index}>
                     <a href="/">
-                      <img src={`${process.env.REACT_APP_API_URL}/public/${item.image}`} alt={item.name} className="w-full" />
+                      <img src={`${process.env.REACT_APP_API_URL}/${item.image}`} alt={item.name} className="w-full" />
                     </a>
                   </SwiperSlide>
                 ))}

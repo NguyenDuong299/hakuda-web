@@ -1,44 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { Products } from "../../types";
+
 const Suggest = () => {
-  const mockData = [
-    {
-      img: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
-      name: "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
-      price: "1400000",
-    },
-    {
-      img: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
-      name: "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
-      price: "1400000",
-    },
-    {
-      img: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
-      name: "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
-      price: "1400000",
-    },
-    {
-      img: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
-      name: "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
-      price: "1400000",
-    },
-    {
-      img: "f84eb124-0644-448c-8e8c-30776876301d-1735131922675.webp",
-      name: "Mô hình Metal Build 1/100 Date Masamune (Có bonus Gacha) - Mô hình chính hãng Moshow Toys",
-      price: "1400000",
-    },
-  ];
+  const [products, setProducts] = useState<Products[]>([]);
+  const fetchSugestProducts = async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/filter/suggest`);
+      setProducts(res.data.products);
+      console.log(res.data.products);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSugestProducts();
+  }, []);
+
   return (
     <section className="mt-[30px]">
       <div className="container px-5 lg:px-0 mx-auto">
         <div className="flex items-center justify-between mb-5">
-          <a href="/" className="text-2xl font-extrabold hover:text-[#A3A3A3]">
-            CÓ THỂ BẠN SẼ THÍCH
-          </a>
+          <h2 className="text-2xl font-extrabold">CÓ THỂ BẠN SẼ THÍCH</h2>
           <div className="flex items-center gap-1.5">
             <button
               className="prev-btn bg-white w-[30px] h-[30px] rounded flex items-center justify-center"
@@ -78,18 +67,28 @@ const Suggest = () => {
           modules={[Navigation]}
           className="swiperProduct relative"
         >
-          {mockData.map((item, index) => (
+          {products.map((item, index) => (
             <SwiperSlide key={index} className="group">
-              <Link className="overflow-hidden block" to="/">
-                <img src={`/images/${item.img}`} alt="" className="w-full group-hover:scale-110 duration-500" />
+              <Link className="overflow-hidden block" to={`/products/${item.id}`}>
+                {item.images &&
+                  item.images
+                    .filter((img) => img.isThumbnail)
+                    .map((img, index) => (
+                      <img
+                        key={index}
+                        src={`${process.env.REACT_APP_API_URL}/${img.image_url}`}
+                        alt={img.image_url}
+                        className="w-full h-auto object-cover group-hover:scale-105 transition-all duration-500"
+                      />
+                    ))}
               </Link>
               <div className="mt-4">
                 <h3 className="text-[15px] font-semibold truncate">
-                  <Link className="hover:text-[#A3A3A3]" to="/">{item.name}</Link>
+                  <Link className="hover:text-[#A3A3A3]" to={`/products/${item.id}`}>
+                    {item.name}
+                  </Link>
                 </h3>
-                <span className="text-[#FD0000] font-bold text-base">
-                  {Number(item.price).toLocaleString("vi-VN")}₫
-                </span>
+                <span className="text-[#FD0000] font-bold text-base">{Number(item.price).toLocaleString("vi-VN")}₫</span>
               </div>
             </SwiperSlide>
           ))}

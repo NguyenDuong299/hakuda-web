@@ -43,7 +43,7 @@ export interface Products {
   hot: boolean;
   brand_id: number;
   product_line_id: number;
-  image: ProductImages[];
+  images: ProductImages[];
   createdAt: string;
   updatedAt: string;
 }
