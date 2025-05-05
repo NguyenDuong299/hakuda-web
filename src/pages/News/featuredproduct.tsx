@@ -16,6 +16,7 @@ const FeaturedProduct = () => {
   useEffect(() => {
     fetchHotProduct();
   }, []);
+
   return (
     <>
       <h2 className="text-2xl font-extrabold mb-2.5">SẢN PHẨM NỔI BẬT</h2>
@@ -26,7 +27,7 @@ const FeaturedProduct = () => {
               {item.images &&
                 item.images
                   .filter((img) => img.isThumbnail)
-                  .map((img, index) => <img key={index} src={`${process.env.REACT_APP_API_URL}/${img.image_url}`} alt={img.image_url} className="h-[100px] rounded-[5px]" />)}
+                  .map((img, index) => <img key={index} src={`${process.env.REACT_APP_API_URL}/${img.image_url}`} alt={img.image_url} className="h-[100px] rounded-[5px] aspect-square" />)}
             </Link>
             <div className="flex flex-col gap-0.5 flex-1">
               <Link className="line-clamp-2 hover:text-[#A3A3A3]" to={`/products/${item.id}`}>

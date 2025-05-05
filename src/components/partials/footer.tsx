@@ -2,11 +2,9 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-[#ebebeb]">
-      <div className="flex items-center gap-[35px] py-[30px] justify-center">
-        <span className="text-base hidden lg:block">
-          Theo dõi HAKUDA Store tại
-        </span>
+    <footer className="border-t border-[#ebebeb] mt-10">
+      <div className="flex items-center gap-[35px] py-[30px] justify-center"> 
+        <span className="text-base hidden lg:block">Theo dõi HAKUDA Store tại</span>
         <a href="/">
           <img className="h-[54px]" src="/images/facebook.webp" alt="" />
         </a>
@@ -25,10 +23,7 @@ const Footer = () => {
           <div className="flex flex-wrap pt-10 pb-5 -mx-2.5 space-y-4 lg:space-y-0">
             <div className="w-full max-w-full md:w-1/3 lg:w-1/4 px-2.5">
               <h2 className="text-xl font-bold uppercase mb-5">VỀ CHÚNG TÔI</h2>
-              <p>
-                HỘ KINH DOANH HAKUDA. GPDK số 01A8034114 cấp ngày 23/03/2023 do
-                UBND quận Ba Đình thành phố Hà Nội. MST: 8429736828-001
-              </p>
+              <p>HỘ KINH DOANH HAKUDA. GPDK số 01A8034114 cấp ngày 23/03/2023 do UBND quận Ba Đình thành phố Hà Nội. MST: 8429736828-001</p>
             </div>
             <div className="w-full max-w-full md:w-1/3 lg:w-1/4 px-2.5">
               <h2 className="text-xl font-bold uppercase mb-5">HƯỚNG DẪN</h2>
@@ -75,19 +70,11 @@ const Footer = () => {
             </div>
             <div className="w-full max-w-full lg:w-1/4 px-2.5">
               <h2 className="text-xl font-bold uppercase mb-5">Liên hệ</h2>
-              <p className="mb-5">
-                Nếu bạn cần hỗ trợ hoặc có bất kỳ thắc mắc gì, hãy liên hệ ngay
-                với HAKUDA nhé!
-              </p>
+              <p className="mb-5">Nếu bạn cần hỗ trợ hoặc có bất kỳ thắc mắc gì, hãy liên hệ ngay với HAKUDA nhé!</p>
               <ul className="space-y-[13px]">
                 <li className="flex items-center gap-2">
-                  <img
-                    className="h-4"
-                    src="/images/icons/location.svg"
-                    alt=""
-                  />
-                  Số 8 ngõ 118 Đào Tấn, Phường Cống Vị, Quận Ba Đình, Hà Nội, Hà
-                  Nội
+                  <img className="h-4" src="/images/icons/location.svg" alt="" />
+                  Số 8 ngõ 118 Đào Tấn, Phường Cống Vị, Quận Ba Đình, Hà Nội, Hà Nội
                 </li>
                 <li className="flex items-center gap-2">
                   <img className="h-4" src="/images/icons/phone.svg" alt="" />

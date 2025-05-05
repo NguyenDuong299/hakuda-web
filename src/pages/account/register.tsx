@@ -4,7 +4,7 @@ import axios from "axios";
 import Breadcrumb from "../../components/ui/breadcrumb";
 import { toast } from "react-toastify";
 import { Users } from "../../types";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const {
@@ -48,7 +48,7 @@ const Register = () => {
 
   return (
     <>
-      <Breadcrumb />
+      <Breadcrumb br1="Đăng ký" url="/account/register" />
       <div className="flex justify-center mt-[30px] mb-10">
         <div className="w-[900px] max-w-[90%] flex justify-center border border-black border-r-0">
           <div className="p-[30px] w-full md:w-2/3">

@@ -12,15 +12,16 @@ const NewDetail = () => {
   const { id } = useParams();
   const [post, setPost] = useState<Posts | null>(null);
 
-  const fetchPost = async () => {
-    try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/posts/${id}`);
-      setPost(res.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
   useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/posts/${id}`);
+        setPost(res.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
     if (id) {
       fetchPost();
     }
@@ -37,7 +38,7 @@ const NewDetail = () => {
   };
   return (
     <section>
-      <Breadcrumb />
+      <Breadcrumb br1="Tin tức" url="/news" br2={post?.title} />
       <div className="container px-5 lg:px-0 mx-auto mt-[30px]">
         <div className="flex flex-col lg:flex-row gap-5">
           <div className="w-full lg:w-1/4">

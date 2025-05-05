@@ -13,7 +13,6 @@ const Suggest = () => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/filter/suggest`);
       setProducts(res.data.products);
-      console.log(res.data.products);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -78,7 +77,7 @@ const Suggest = () => {
                         key={index}
                         src={`${process.env.REACT_APP_API_URL}/${img.image_url}`}
                         alt={img.image_url}
-                        className="w-full h-auto object-cover group-hover:scale-105 transition-all duration-500"
+                        className="w-full h-auto object-cover group-hover:scale-105 transition-all duration-500 aspect-square"
                       />
                     ))}
               </Link>

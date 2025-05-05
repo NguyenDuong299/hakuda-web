@@ -1,8 +1,5 @@
-import axios from "axios";
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import Breadcrumb from "../../components/ui/breadcrumb";
 import { Users } from "../../types";
 
@@ -15,7 +12,7 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <Breadcrumb />
+      <Breadcrumb br1="Quên mật khẩu" url="account/forgot-password" />
       <div className="flex justify-center mt-[30px] mb-10">
         <div className="w-[900px] max-w-[90%] flex justify-center border border-black border-r-0">
           <div className="p-[30px] w-full md:w-2/3">

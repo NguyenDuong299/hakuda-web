@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Overlay from "../ui/overlay";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/authStore";
 import { toast } from "react-toastify";
+import { Brands } from "../../types";
+import axios from "axios";
+import { useCartStore } from "../../store/cartStore";
 const Header = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const isActive = (path: string) => currentPath.startsWith(path);
   const [active, setActive] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token"));
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
-  
+  const [brand, setBrand] = useState<Brands[]>([]);
+  const [productLine, setProductLine] = useState<Brands[]>([]);
+
   // Đồng bộ trạng thái token nếu có thay đổi từ tab khác
   useEffect(() => {
     const syncLogout = () => setToken(localStorage.getItem("token"));
@@ -24,13 +32,40 @@ const Header = () => {
     navigate("/");
     toast.success("Đăng xuất thành công!");
   };
+
+  const fetchBrands = async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/brands`);
+      setBrand(res.data.brands);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchProductLine = async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/product-lines`);
+      setProductLine(res.data.productLines);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchBrands();
+    fetchProductLine();
+  }, []);
+
+  const products = useCartStore((state) => state.products);
+  const cartNumber = products.length;
+
   return (
     <header>
       <div className="container mx-auto px-5 lg:px-0">
         <div className="flex py-[18px] justify-between items-center flex-wrap">
           <div className="w-1/2 md:w-auto">
-            <Link to="/">
-              <img className="block h-12 md:h-16" src="/images/logo.webp" alt="" />
+            <Link to="/" className="font-bold text-4xl pl-2 lg:pl-10">
+              BANDAI
             </Link>
           </div>
           <div className="flex gap-8 md:order-1 w-1/2 md:w-auto justify-end">
@@ -69,7 +104,7 @@ const Header = () => {
                 <Link to="/cart">
                   <img src="/images/icons/cart.svg" className="h-[34px]" alt="" />
                 </Link>
-                <span className="bg-[#DB0015] rounded-full text-white absolute w-5 h-5 flex items-center justify-center left-0 -top-[3px]">0</span>
+                <span className="bg-[#DB0015] rounded-full text-white absolute w-5 h-5 flex items-center justify-center left-0 -top-[3px]">{cartNumber}</span>
               </div>
               <Link to="/cart" className="hover:opacity-50 leading-[18px] hidden lg:block">
                 Giỏ hàng <br /> của bạn
@@ -85,110 +120,56 @@ const Header = () => {
         </div>
         <div className="items-center hidden lg:flex">
           <div className="relative group/menu">
-            <span className="font-bold text-base flex items-center gap-2 text-white bg-black py-[9px] w-fit pl-2 pr-[54px] rounded-[7px] cursor-pointer">
-              <img src="/images/icons/bars.svg" className="h-[22px]" alt="" />
+            <span className="font-bold text-base flex items-center gap-2 text-white bg-black py-[9px] w-fit pl-2 pr-[54px] rounded-[7px]">
+              <img src="/images/icons/bars.svg" className="h-[22px]" alt="bars" />
               DANH MỤC SẢN PHẨM
             </span>
-            <ul className="bg-white absolute w-full hidden group-hover/menu:block z-10" style={{ boxShadow: "0px 0px 20px 0px rgba(44,44,44,0.05)" }}>
-              <li className="border-b border-[#ebebeb] group">
-                <a className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block" href="/">
-                  TẤT CẢ SẢN PHẨM
-                </a>
-              </li>
-              <li className="border-b border-[#ebebeb] group">
-                <a className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block" href="/">
-                  MODEL KIT
-                </a>
-              </li>
-              <li className="border-b border-[#ebebeb] group">
-                <a className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block" href="/">
-                  METAL BUILD
-                </a>
-              </li>
-              <li className="border-b border-[#ebebeb] group">
-                <a className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block" href="/">
-                  FIGURE
-                </a>
-              </li>
-              <li className="border-b border-[#ebebeb] group">
-                <a className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block" href="/">
-                  DỤNG CỤ
-                </a>
-              </li>
-              <li className="border-b border-[#ebebeb] group">
-                <a className="text-base font-normal group-hover:text-[#A3A3A3] py-1.5 px-2 block" href="/">
-                  PHỤ KIỆN
-                </a>
-              </li>
-            </ul>
           </div>
           <ul className="space-x-8 flex ml-2.5 border-t border-[#EBEBEB] flex-1">
-            <li className="active group border-t border-black relative">
+            <li className={`relative ${currentPath === "/" ? "border-t border-black" : ""}`}>
               <Link className="text-base font-bold py-3 block" to="/">
                 Trang chủ
               </Link>
             </li>
+            <li className={`relative ${isActive("/about-us") ? "border-t border-black" : ""}`}>
+              <Link className="text-base font-bold py-3 block" to="/about-us">
+                Về chúng tôi
+              </Link>
+            </li>
             <li className="relative group/menu">
-              <a className="text-base font-bold py-3 block" href="/">
-                Model Kit
-              </a>
+              <Link className="text-base font-bold py-3 block" to="/">
+                Thương Hiệu
+              </Link>
               <ul className="absolute bg-white top-full left-0 hidden group-hover/menu:block w-[220px] z-10" style={{ boxShadow: "0 1px 2px 2px rgba(0, 0, 0, 0.04)" }}>
-                <li className="group relative">
-                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
-                    Bandai
-                  </a>
-                </li>
-                <li className="group relative">
-                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
-                    Bandai
-                  </a>
-                </li>
-                <li className="group relative">
-                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
-                    Bandai
-                  </a>
-                </li>
-                <li className="group relative">
-                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
-                    Bandai
-                  </a>
-                </li>
-                <li className="group relative">
-                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
-                    Bandai
-                  </a>
-                </li>
-                <li className="group relative">
-                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
-                    Bandai
-                  </a>
-                </li>
-                <li className="group relative">
-                  <a className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" href="/">
-                    Bandai
-                  </a>
-                </li>
+                {brand.length > 0 &&
+                  brand.map((item, index) => (
+                    <li key={index} className="group relative">
+                      <Link className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" to="/">
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
               </ul>
             </li>
-            <li className="relative">
-              <a className="text-base font-bold py-3 block" href="/">
-                Metal Build
-              </a>
+            <li className="relative group/menu">
+              <Link className="text-base font-bold py-3 block" to="/">
+                Dòng Sản Phẩm
+              </Link>
+              <ul className="absolute bg-white top-full left-0 hidden group-hover/menu:block w-[220px] z-10" style={{ boxShadow: "0 1px 2px 2px rgba(0, 0, 0, 0.04)" }}>
+                {productLine.length > 0 &&
+                  productLine.map((item, index) => (
+                    <li key={index} className="group relative">
+                      <Link className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" to="/">
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
             </li>
-            <li className="relative">
-              <a className="text-base font-bold py-3 block" href="/">
-                Figure
-              </a>
-            </li>
-            <li className="relative">
+            <li className={`relative ${isActive("/news") ? "border-t border-black" : ""}`}>
               <Link className="text-base font-bold py-3 block" to="/news">
                 Tin Tức
               </Link>
-            </li>
-            <li className="relative">
-              <a className="text-base font-bold py-3 block" href="/">
-                Hàng Pre-Order
-              </a>
             </li>
           </ul>
         </div>
@@ -213,64 +194,32 @@ const Header = () => {
             <img onClick={() => setActive(false)} src="/images/icons/bars.svg" className="h-[22px]" alt="" />
             DANH MỤC SẢN PHẨM
           </span>
-          <ul>
-            <li>
-              <a className="uppercase block font-normal p-2" href="/">
-                tất cả sản phẩm
-              </a>
-            </li>
-            <li>
-              <a className="uppercase block font-normal p-2" href="/">
-                model kit
-              </a>
-            </li>
-            <li>
-              <a className="uppercase block font-normal p-2" href="/">
-                metal build
-              </a>
-            </li>
-            <li>
-              <a className="uppercase block font-normal p-2" href="/">
-                figuire
-              </a>
-            </li>
-            <li>
-              <a className="uppercase block font-normal p-2" href="/">
-                dụng cụ
-              </a>
-            </li>
-            <li>
-              <a className="uppercase block font-normal p-2" href="/">
-                phụ kiện
-              </a>
-            </li>
-          </ul>
         </div>
         <ul>
           <li>
-            <a className="text-base font-bold py-1.5 px-2  block" href="/">
+            <Link className="text-base font-bold py-1.5 px-2  block" to="/">
               Trang chủ
-            </a>
+            </Link>
           </li>
           <li>
-            <a className="text-base font-bold py-1.5 px-2  block" href="/">
-              Trang chủ
-            </a>
+            <Link className="text-base font-bold py-1.5 px-2  block" to="/about-us">
+              Về Chúng Tôi
+            </Link>
           </li>
           <li>
-            <a className="text-base font-bold py-1.5 px-2  block" href="/">
-              Trang chủ
-            </a>
+            <Link className="text-base font-bold py-1.5 px-2  block" to="/">
+              Thương hiệu
+            </Link>
           </li>
           <li>
-            <a className="text-base font-bold py-1.5 px-2  block" href="/">
-              Trang chủ
-            </a>
+            <Link className="text-base font-bold py-1.5 px-2  block" to="/">
+              Dòng Sản Phẩm
+            </Link>
           </li>
           <li>
-            <a className="text-base font-bold py-1.5 px-2  block" href="/">
-              Trang chủ
-            </a>
+            <Link className="text-base font-bold py-1.5 px-2  block" to="/">
+              Tin tức
+            </Link>
           </li>
         </ul>
       </div>

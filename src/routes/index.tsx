@@ -10,10 +10,13 @@ import Product from "../pages/Products";
 import NewDetail from "../pages/NewDetail";
 import Profile from "../pages/Account/Profile";
 import ForgotPassword from "../pages/Account/ForgotPassword";
+import Payment from "../pages/Payment/Checkout";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 const AppRoutes = () => {
   return (
     <Routes>
+      <Route path="/checkout" element={<Payment />} />
       <Route
         element={
           <DefaultLayout>
@@ -25,12 +28,13 @@ const AppRoutes = () => {
         <Route path="/news" element={<NewsPage />} />
         <Route path="/news/:id" element={<NewDetail />} />
         <Route path="/products" element={<Product />} />
-        <Route path="/products/:slug" element={<ProductDetail />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/account/login" element={<Login />} />
         <Route path="/account/register" element={<Register />} />
         <Route path="/account/profile" element={<Profile />} />
         <Route path="/account/forgot-password" element={<ForgotPassword />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/about-us" element={<AboutUs />} />
       </Route>
     </Routes>
   );

@@ -17,7 +17,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { setUser } = useAuth();
-  
+
   const onSubmit = async (formData: Users) => {
     setIsLoading(true);
     try {
@@ -47,7 +47,7 @@ const Login = () => {
 
   return (
     <>
-      <Breadcrumb />
+      <Breadcrumb br1="Đăng nhập" url="/account/login"/>
       <div className="flex justify-center mt-[30px] mb-10">
         <div className="w-[900px] max-w-[90%] flex justify-center border border-black border-r-0">
           <div className="p-[30px] w-full md:w-2/3">

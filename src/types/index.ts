@@ -32,6 +32,7 @@ export interface Posts {
   updated_at: string;
 }
 export interface Products {
+  cart_quantity: number;
   id: number;
   code: string;
   name: string;
@@ -50,4 +51,28 @@ export interface Products {
 export interface ProductImages {
   image_url: string;
   isThumbnail: boolean;
+}
+
+export interface Orders {
+  id: number;
+  user_id: number;
+  voucher_id: number;
+  receipt_name: string;
+  total_price: number;
+  recipient_name: string;
+  recipient_phone: string;
+  recipient_address: string;
+  note: string;
+  status: string;
+  order_items: OrderItems[];
+  createdAt: string;
+  updatedAt: string;
+}
+export interface OrderItems {
+  id: number;
+  product_id: number;
+  quantity: number;
+  price: number;
+  createdAt: string;
+  updatedAt: string;
 }

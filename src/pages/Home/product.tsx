@@ -92,7 +92,7 @@ const Product = () => {
                                 key={index}
                                 src={`${process.env.REACT_APP_API_URL}/${img.image_url}`}
                                 alt={img.image_url}
-                                className="w-full h-auto object-cover group-hover:scale-105 transition-all duration-500"
+                                className="w-full h-auto object-cover group-hover:scale-105 transition-all duration-500 aspect-square"
                               />
                             ))}
                       </Link>

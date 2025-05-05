@@ -7,7 +7,7 @@ import NewsList from "./NewsList";
 const NewsPage = () => {
   return (
     <>
-      <Breadcrumb />
+      <Breadcrumb br1="Tin tức" url="/news"/>
       <div className="container px-5 lg:px-0 mx-auto">
         <div className="flex flex-col lg:flex-row lg:gap-5">
           <div className="w-full lg:w-3/4">

@@ -11,21 +11,21 @@ const NewsList = () => {
   const [totalPosts, setTotalPosts] = useState(0);
   const totalPages = Math.ceil(totalPosts / 10);
 
-  const fetchPosts = async () => {
-    try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/posts`, {
-        params: {
-          page,
-        },
-      });
-      setPost(res.data.posts);
-      setTotalPosts(res.data.totalPosts);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/posts`, {
+          params: {
+            page,
+          },
+        });
+        setPost(res.data.posts);
+        setTotalPosts(res.data.totalPosts);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
     fetchPosts();
   }, [page]);
 

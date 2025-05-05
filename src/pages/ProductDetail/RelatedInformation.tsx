@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Posts } from "../../types";
+import axios from "axios";
 
 const RelatedInformation = () => {
+  const [post, setPost] = useState<Posts[]>([]);
+  const fetchPost = async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/posts`);
+      setPost(res.data.posts);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPost();
+  }, []);
+
   return (
     <>
       <div className="">
@@ -25,50 +41,23 @@ const RelatedInformation = () => {
           </div>
         </div>
       </div>
-      <div className="mt-5">
-        <h2 className="font-bold text-2xl">TIN MỚI NHẤT</h2>
-        <div className="mt-5 flex flex-col space-y-2">
-          <div className="flex flex-col gap-2 pb-2.5 border-b border-[#EBEBEB]">
-            <Link to="/">
-              <img
-                src="/images/cach-lap-rap-mo-hinh-mg-cho-nguoi-moi.webp"
-                alt=""
-                className="w-full"
-              />
-            </Link>
-            <Link className="line-clamp-2 text-[15px]" to="/">
-              Cách Lắp Ráp Mô Hình Gundam MG Cho Người Mới: Hướng Dẫn Chi Tiết
-              Từ A-Z
-            </Link>
-          </div>
-          <div className="flex flex-col gap-2 pb-2.5 border-b border-[#EBEBEB]">
-            <Link to="/">
-              <img
-                src="/images/cach-lap-rap-mo-hinh-mg-cho-nguoi-moi.webp"
-                alt=""
-                className="w-full"
-              />
-            </Link>
-            <Link className="line-clamp-2 text-[15px]" to="/">
-              Cách Lắp Ráp Mô Hình Gundam MG Cho Người Mới: Hướng Dẫn Chi Tiết
-              Từ A-Z
-            </Link>
-          </div>
-          <div className="flex flex-col gap-2 pb-2.5 border-b border-[#EBEBEB]">
-            <Link to="/">
-              <img
-                src="/images/cach-lap-rap-mo-hinh-mg-cho-nguoi-moi.webp"
-                alt=""
-                className="w-full"
-              />
-            </Link>
-            <Link className="line-clamp-2 text-[15px]" to="/">
-              Cách Lắp Ráp Mô Hình Gundam MG Cho Người Mới: Hướng Dẫn Chi Tiết
-              Từ A-Z
-            </Link>
+      {post.length > 0 && (
+        <div className="mt-5">
+          <h2 className="font-bold text-2xl">TIN MỚI NHẤT</h2>
+          <div className="mt-5 flex flex-col space-y-2">
+            {post.map((item, index) => (
+              <div key={index} className="flex flex-col gap-2 pb-2.5 border-b border-[#EBEBEB]">
+                <Link to={`/news/${item.id}`}>
+                  <img src={`${process.env.REACT_APP_API_URL}/${item.thumbnail}`} alt={item.title} className="w-full" />
+                </Link>
+                <Link className="line-clamp-2 text-[15px]" to={`/news/${item.id}`}>
+                  {item.title}
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
