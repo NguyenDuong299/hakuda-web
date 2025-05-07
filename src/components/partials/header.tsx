@@ -137,6 +137,11 @@ const Header = () => {
               </Link>
             </li>
             <li className="relative group/menu">
+              <Link className="text-base font-bold py-3 block" to="/products">
+                Sản phẩm
+              </Link>
+            </li>
+            <li className="relative group/menu">
               <Link className="text-base font-bold py-3 block" to="/">
                 Thương Hiệu
               </Link>

@@ -12,7 +12,7 @@ const Brand = () => {
     const fetchBrand = async () => {
       try {
         const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/brands`);
-        setBrand(res.data);
+        setBrand(res.data.brands);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -50,7 +50,7 @@ const Brand = () => {
                   <SwiperSlide key={index}>
                     <Link to="/" className="flex flex-col items-center group">
                       <img
-                        src={`/images/${item.image}`}
+                        src={`${process.env.REACT_APP_API_URL}/${item.image}`}
                         alt={item.name}
                         className="rounded-full border-2 border-black w-20 h-20 group-hover:rotate-45 transition duration-500"
                       />

@@ -76,3 +76,11 @@ export interface OrderItems {
   createdAt: string;
   updatedAt: string;
 }
+export interface ProductLines {
+  id: number; 
+  name: string;
+  description: string;
+  image: string;
+  createdAt: string;
+  updatedAt: string;
+}
