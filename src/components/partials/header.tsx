@@ -136,7 +136,7 @@ const Header = () => {
                 Về chúng tôi
               </Link>
             </li>
-            <li className="relative group/menu">
+            <li className={`relative ${isActive("/products") ? "border-t border-black" : ""}`}>
               <Link className="text-base font-bold py-3 block" to="/products">
                 Sản phẩm
               </Link>
@@ -149,7 +149,7 @@ const Header = () => {
                 {brand.length > 0 &&
                   brand.map((item, index) => (
                     <li key={index} className="group relative">
-                      <Link className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" to="/">
+                      <Link className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" to={`/products?brandId=${item.id}`}>
                         {item.name}
                       </Link>
                     </li>
@@ -164,7 +164,7 @@ const Header = () => {
                 {productLine.length > 0 &&
                   productLine.map((item, index) => (
                     <li key={index} className="group relative">
-                      <Link className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" to="/">
+                      <Link className="text-base uppercase font-bold py-[5.5px] block pl-2.5 pr-5 group-hover:text-[#A3A3A3]" to={`/products?productLineId=${item.id}`}>
                         {item.name}
                       </Link>
                     </li>

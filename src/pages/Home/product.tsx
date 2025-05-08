@@ -162,7 +162,7 @@ const Product = () => {
                             {item.images &&
                               item.images
                                 .filter((img) => img.isThumbnail)
-                                .map((img, index) => <img key={index} src={`${process.env.REACT_APP_API_URL}/${img.image_url}`} alt={img.image_url} className="h-[120px]" />)}
+                                .map((img, index) => <img key={index} src={`${process.env.REACT_APP_API_URL}/${img.image_url}`} alt={img.image_url} className="h-[120px] aspect-square" />)}
                           </Link>
                           <div className="flex-1">
                             <Link to={`produts/${item.id}`} className="text-[15px] font-semibold line-clamp-2 hover:text-[#A3A3A3]">

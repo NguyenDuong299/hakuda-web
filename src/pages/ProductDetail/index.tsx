@@ -45,7 +45,7 @@ const ProductDetail = () => {
     };
 
     fetchProductById();
-  }, [id]);
+  }, [id, navigate]);
 
   const handleAddToCart = () => {
     if (product) {
