@@ -4,12 +4,23 @@ import { useCartStore } from "../../store/cartStore";
 import axios from "axios";
 import { useAuth } from "../../store/authStore";
 import { toast } from "react-toastify";
+import { Vouchers } from "../../types";
 const Payment = () => {
   const navigate = useNavigate();
-  const products = useCartStore((state) => state.products);
   const { user } = useAuth();
-  const totalPrice = products.reduce((acc, item) => acc + item.price * item.cart_quantity, 0);
   const clearCart = useCartStore((state) => state.clearCart);
+  const products = useCartStore((state) => state.products);
+  const [voucher, setVoucher] = useState<Vouchers>({
+    id: 0,
+    code: "",
+    discountType: "",
+    discountValue: 0,
+    quantity: 0,
+    startDate: "",
+    endDate: "",
+    createdAt: "",
+    updatedAt: "",
+  });
   const [form, setForm] = useState({
     user_id: 0,
     voucher_id: 0,
@@ -26,6 +37,7 @@ const Payment = () => {
       const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/orders`, {
         ...form,
         user_id: user?.id,
+        voucher_id: voucher.id,
         total_price: totalPrice,
         order_items: products.map((item) => ({
           product_id: item.id,
@@ -47,6 +59,33 @@ const Payment = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const checkVoucher = async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/vouchers/check/${voucher.code}`);
+      if (res.status === 200) {
+        toast.success("Kiểm tra thành công!");
+        setVoucher({
+          ...res.data,
+        });
+      }
+    } catch (error) {
+      setVoucher({
+        id: 0,
+        code: "",
+        discountType: "",
+        discountValue: 0,
+        quantity: 0,
+        startDate: "",
+        endDate: "",
+        createdAt: "",
+        updatedAt: "",
+      });
+      toast.error("Voucher không hợp lệ hoặc đã hết hạn / hết số lượng");
+      console.error("Error fetching data:", error);
+    }
+  };
+  const rawTotal = products.reduce((acc, item) => acc + item.price * item.cart_quantity, 0);
+  const totalPrice = voucher.discountType === "percentage" ? rawTotal - (rawTotal * voucher.discountValue) / 100 : rawTotal - voucher.discountValue;
   return (
     <div className="max-w-[1200px] mx-auto px-5 lg:px-0">
       <div className="flex flex-col lg:flex-row gap-10">
@@ -187,8 +226,10 @@ const Payment = () => {
             <div className="relative w-full">
               <input
                 type="text"
-                name="voucher"
-                required
+                name="code"
+                id="code"
+                value={voucher.code}
+                onChange={(e) => setVoucher({ ...voucher, code: e.target.value })}
                 className="peer w-full border border-gray-300 rounded px-4 pt-5 pb-2 placeholder-transparent focus:outline-none focus:border-blue-500"
                 placeholder="Nhập mã giảm giá"
               />
@@ -201,7 +242,7 @@ const Payment = () => {
                 Nhập mã giảm giá
               </label>
             </div>
-            <button className="w-[100px] rounded bg-[#357EBD] text-white" type="button">
+            <button onClick={checkVoucher} className="w-[100px] rounded bg-[#357EBD] text-white" type="button">
               Kiểm tra
             </button>
           </div>
@@ -210,7 +251,8 @@ const Payment = () => {
               <span>Tạm tính</span> <span>{Number(totalPrice).toLocaleString("vi-VN")}₫</span>
             </div>
             <div className="flex justify-between">
-              <span>Phí vận chuyển</span> <span>-</span>
+              <span>Áp dụng giá giảm</span>
+              {voucher.discountType === "percentage" ? <span>{voucher.discountValue}%</span> : <span>{Number(voucher.discountValue).toLocaleString("vi-VN")}₫</span>}
             </div>
           </div>
           <div className="pt-7 flex flex-col gap-4">

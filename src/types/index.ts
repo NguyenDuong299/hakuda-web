@@ -84,3 +84,15 @@ export interface ProductLines {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Vouchers { 
+  id: number;
+  code: string;
+  discountType: string;
+  discountValue: number;
+  quantity: number;
+  startDate: string;
+  endDate: string;
+  createdAt: string;
+  updatedAt: string;
+}
