@@ -54,6 +54,9 @@ const ProductFilter = ({ selectedBrand, setSelectedBrand, selectedProductLine, s
       params.set("productLineId", selectedProductLine);
     }
 
+    const searchQuery = new URLSearchParams(location.search).get("query");
+    if (searchQuery) params.set("query", searchQuery);
+
     navigate(`?${params.toString()}`, { replace: true });
   };
 
@@ -67,7 +70,7 @@ const ProductFilter = ({ selectedBrand, setSelectedBrand, selectedProductLine, s
     const productLineId = params.get("productLineId");
     const minPrice = params.get("minPrice");
     const maxPrice = params.get("maxPrice");
-
+    const searchQuery = params.get("search");
     if (brandId) {
       setSelectedBrand(brandId);
     }
@@ -80,6 +83,10 @@ const ProductFilter = ({ selectedBrand, setSelectedBrand, selectedProductLine, s
     if (maxPrice) {
       params.set("maxPrice", String(maxPrice));
     }
+    if (searchQuery) {
+      params.set("search", searchQuery);
+    }
+    navigate(`?${params.toString()}`, { replace: true });
   }, [location.search, setSelectedBrand, setSelectedProductLine]);
 
   useEffect(() => {

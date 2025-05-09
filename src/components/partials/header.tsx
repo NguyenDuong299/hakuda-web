@@ -17,7 +17,7 @@ const Header = () => {
   const { user, setUser } = useAuth();
   const [brand, setBrand] = useState<Brands[]>([]);
   const [productLine, setProductLine] = useState<Brands[]>([]);
-
+  const [query, setQuery] = useState("");
   // Đồng bộ trạng thái token nếu có thay đổi từ tab khác
   useEffect(() => {
     const syncLogout = () => setToken(localStorage.getItem("token"));
@@ -56,6 +56,12 @@ const Header = () => {
     fetchProductLine();
   }, []);
 
+  const handleSubmit = (e : React.FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      navigate(`/products?search=${encodeURIComponent(query.trim())}`);
+    }
+  };
   const products = useCartStore((state) => state.products);
   const cartNumber = products.length;
 
@@ -112,8 +118,8 @@ const Header = () => {
             </div>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/3">
-            <form className="relative w-full">
-              <input className="rounded border border-black pl-2.5 pr-11 py-[7px] w-full" type="text" placeholder="Tìm kiếm sản phẩm" />
+            <form onSubmit={handleSubmit} className="relative w-full">
+              <input value={query} onChange={(e) => setQuery(e.target.value)} className="rounded border border-black pl-2.5 pr-11 py-[7px] w-full" type="text" placeholder="Tìm kiếm sản phẩm" />
               <img src="/images/icons/search.svg" className="h-[23px] absolute right-2.5 top-2" alt="" />
             </form>
           </div>

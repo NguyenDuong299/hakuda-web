@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Products } from "../../types";
 
 interface Props {
@@ -17,12 +17,15 @@ const ProductList = ({ selectedBrands, selectedProductLines, minPrice, maxPrice 
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("");
 
+  const location = useLocation();
+  const searchQuery = new URLSearchParams(location.search).get("search");
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/products`, {
           params: {
             page,
+            search: searchQuery,
             brandId: selectedBrands,
             productLineId: selectedProductLines,
             minPrice: minPrice,
@@ -37,7 +40,7 @@ const ProductList = ({ selectedBrands, selectedProductLines, minPrice, maxPrice 
       }
     };
     fetchProduct();
-  }, [page, selectedBrands, selectedProductLines, minPrice, maxPrice, sortBy]);
+  }, [page, searchQuery, selectedBrands, selectedProductLines, minPrice, maxPrice, sortBy]);
 
   return (
     <>
