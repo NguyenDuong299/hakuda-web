@@ -56,10 +56,13 @@ const Header = () => {
     fetchProductLine();
   }, []);
 
-  const handleSubmit = (e : React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (query.trim()) {
-      navigate(`/products?search=${encodeURIComponent(query.trim())}`);
+    const trimmed = query.trim();
+    if (trimmed) {
+      navigate(`/products?search=${encodeURIComponent(trimmed)}`);
+    } else {
+      navigate(`/products`);
     }
   };
   const products = useCartStore((state) => state.products);

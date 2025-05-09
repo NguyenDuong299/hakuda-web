@@ -60,8 +60,7 @@ const ProductDetail = () => {
   };
   const fetchProduct = async () => {
     try {
-  
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/filter/related/${product?.id}`,);
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/filter/related/${product?.id}`);
       setRelatedProduct(res.data.products);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -70,7 +69,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     fetchProduct();
-  },[product]);
+  }, [product]);
   return (
     <>
       <div className="container px-5 mx-auto lg:px-0 mb-[30px]">
@@ -108,9 +107,11 @@ const ProductDetail = () => {
                 <div>
                   <h3 className="font-bold text-lg mb-2.5">{product?.name}</h3>
                   <div className="flex gap-5 mb-4">
-                    <span className="font-normal">
-                      Thương hiệu: <strong>{product?.brand_id}</strong>
-                    </span>
+                    {product?.brand_id && (
+                      <span className="font-normal">
+                        Thương hiệu: <strong>{product?.brand_id}</strong>
+                      </span>
+                    )}
                     <span className="font-normal">
                       Mã sản phẩm: <strong>{product?.code}</strong>
                     </span>
