@@ -151,7 +151,7 @@ const Header = () => {
               </Link>
             </li>
             <li className="relative group/menu">
-              <Link className="text-base font-bold py-3 block" to="/">
+              <Link className="text-base font-bold py-3 block" to="/products">
                 Thương Hiệu
               </Link>
               <ul className="absolute bg-white top-full left-0 hidden group-hover/menu:block w-[220px] z-10" style={{ boxShadow: "0 1px 2px 2px rgba(0, 0, 0, 0.04)" }}>
@@ -166,7 +166,7 @@ const Header = () => {
               </ul>
             </li>
             <li className="relative group/menu">
-              <Link className="text-base font-bold py-3 block" to="/">
+              <Link className="text-base font-bold py-3 block" to="/products">
                 Dòng Sản Phẩm
               </Link>
               <ul className="absolute bg-white top-full left-0 hidden group-hover/menu:block w-[220px] z-10" style={{ boxShadow: "0 1px 2px 2px rgba(0, 0, 0, 0.04)" }}>

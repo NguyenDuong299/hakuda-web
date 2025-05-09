@@ -45,7 +45,7 @@ const RelatedInformation = () => {
         <div className="mt-5">
           <h2 className="font-bold text-2xl">TIN MỚI NHẤT</h2>
           <div className="mt-5 flex flex-col space-y-2">
-            {post.map((item, index) => (
+            {post.slice(0, 3).map((item, index) => (
               <div key={index} className="flex flex-col gap-2 pb-2.5 border-b border-[#EBEBEB] last:border-none">
                 <Link to={`/news/${item.id}`}>
                   <img src={`${process.env.REACT_APP_API_URL}/${item.thumbnail}`} alt={item.title} className="w-full aspect-[16/9]" />

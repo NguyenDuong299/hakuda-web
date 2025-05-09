@@ -10,6 +10,7 @@ const Payment = () => {
   const { user } = useAuth();
   const clearCart = useCartStore((state) => state.clearCart);
   const products = useCartStore((state) => state.products);
+  const [loading, setLoading] = useState(false);
   const [voucher, setVoucher] = useState<Vouchers>({
     id: 0,
     code: "",
@@ -26,6 +27,7 @@ const Payment = () => {
     voucher_id: 0,
     total_price: 0,
     recipient_name: "",
+    recipient_email: "",
     recipient_phone: "",
     recipient_address: "",
     note: "",
@@ -33,6 +35,7 @@ const Payment = () => {
     order_items: [] as { product_id: number; quantity: number; price: number }[],
   });
   const handlePayment = async () => {
+    setLoading(true);
     try {
       const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/orders`, {
         ...form,
@@ -51,6 +54,8 @@ const Payment = () => {
       navigate("/");
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -102,14 +107,16 @@ const Payment = () => {
               {/* Email */}
               <div className="relative">
                 <input
-                  type="text"
-                  name="email"
+                  type="email"
+                  name="recipient_email"
+                  id="recipient_email"
+                  onChange={handleChange}
                   required
                   className="peer w-full border border-gray-300 rounded px-4 pt-5 pb-2 placeholder-transparent focus:outline-none focus:border-blue-500"
                   placeholder="Email người nhận"
                 />
                 <label
-                  htmlFor="email"
+                  htmlFor="recipient_email"
                   className="absolute left-4 top-2 text-gray-500 text-sm transition-all 
                     peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 
                     peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500"
@@ -265,7 +272,7 @@ const Payment = () => {
               <Link className="text-[#357EBD]" to="/cart">
                 Quay về giỏ hàng
               </Link>
-              <button onClick={handlePayment} className="w-[100px] py-3.5 rounded bg-[#357EBD] text-white" type="button">
+              <button onClick={handlePayment} className={`w-[100px] py-3.5 rounded bg-[#357EBD] text-white` + (loading ? " opacity-50 cursor-not-allowed" : "")} type="button" disabled={loading}>
                 Đặt hàng
               </button>
             </div>

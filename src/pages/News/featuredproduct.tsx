@@ -21,7 +21,7 @@ const FeaturedProduct = () => {
     <>
       <h2 className="text-2xl font-extrabold mb-2.5">SẢN PHẨM NỔI BẬT</h2>
       <div className="flex flex-col gap-2.5">
-        {products.map((item, index) => (
+        {products.slice(0, 4).map((item, index) => (
           <div key={index} className="flex gap-2.5 py-2.5 border-b border-[#ebebeb] last:border-none">
             <Link to={`/products/${item.id}`}>
               {item.images &&
@@ -34,9 +34,6 @@ const FeaturedProduct = () => {
                 {item.name}
               </Link>
               <span className="text-[#F91111] font-bold">{Number(item.price).toLocaleString("vi-VN")}₫</span>
-              <a className="bg-[#F91111] px-2.5 py-0.5 w-fit rounded text-white" href="/">
-                Thêm vào giỏ
-              </a>
             </div>
           </div>
         ))}

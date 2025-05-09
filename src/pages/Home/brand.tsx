@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
 import { Autoplay, Navigation } from "swiper/modules";
-import { Brands } from "../../types";
+import { Brands, ProductLines } from "../../types";
 import axios from "axios";
 import { Link } from "react-router-dom";
 const Brand = () => {
   const [brand, setBrand] = useState<Brands[]>([]);
+  const [productLine, setProductLine] = useState<ProductLines[]>([]);
+  
   useEffect(() => {
     const fetchBrand = async () => {
       try {
@@ -17,7 +19,12 @@ const Brand = () => {
         console.error("Error fetching data:", error);
       }
     };
+    const fetchProductLine = async () => {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/product-lines`);
+      setProductLine(res.data.productLines);
+    };
     fetchBrand();
+    fetchProductLine();
   }, []);
   return (
     <>
@@ -54,9 +61,19 @@ const Brand = () => {
                         alt={item.name}
                         className="rounded-full border-2 border-black w-20 h-20 group-hover:rotate-45 transition duration-500"
                       />
-                      <span className="mt-1 font-semibold group-hover:text-[#a3a3a3]">
-                        {item.name}
-                      </span>
+                      <span className="mt-1 font-semibold group-hover:text-[#a3a3a3]">{item.name}</span>
+                    </Link>
+                  </SwiperSlide>
+                ))}
+                {productLine.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <Link to="/" className="flex flex-col items-center group">
+                      <img
+                        src={`${process.env.REACT_APP_API_URL}/${item.image}`}
+                        alt={item.name}
+                        className="rounded-full border-2 border-black w-20 h-20 group-hover:rotate-45 transition duration-500"
+                      />
+                      <span className="mt-1 font-semibold group-hover:text-[#a3a3a3]">{item.name}</span>
                     </Link>
                   </SwiperSlide>
                 ))}

@@ -31,7 +31,7 @@ const Banner = () => {
                 {banner.map((item, index) => (
                   <SwiperSlide key={index}>
                     <a href="/">
-                      <img src={`${process.env.REACT_APP_API_URL}/${item.image}`} alt={item.name} className="w-full" />
+                      <img src={`${process.env.REACT_APP_API_URL}/${item.image}`} alt={item.name} className="w-full aspect-[1400/546]" />
                     </a>
                   </SwiperSlide>
                 ))}

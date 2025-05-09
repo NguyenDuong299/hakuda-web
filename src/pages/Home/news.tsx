@@ -40,6 +40,7 @@ const News = () => {
     str = str.replace(/&amp;/g, "&");
     return str;
   };
+  console.log(products);
 
   return (
     <section className="mt-[30px]">
@@ -54,9 +55,10 @@ const News = () => {
                     {item.images &&
                       item.images
                         .filter((img) => img.isThumbnail)
-                        .map((img, index) => <img key={index} src={`${process.env.REACT_APP_API_URL}/${img.image_url}`} alt={img.image_url} className="h-[70px] aspect-square" />)}
+                        .slice(0, 1)
+                        .map((img, index) => <img key={index} src={`${process.env.REACT_APP_API_URL}${img.image_url}`} alt={img.image_url} className="h-[70px] aspect-square" />)}
                     <div className="">
-                      <h3 className="text-base uppercase">{item.name}</h3>
+                      <h3 className="text-base uppercase line-clamp-2">{item.name}</h3>
                       <Link className="text-[#007bff]" to={`/products/${item.id}`}>
                         Xem chi tiết
                       </Link>

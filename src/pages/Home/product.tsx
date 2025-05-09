@@ -165,7 +165,7 @@ const Product = () => {
                                 .map((img, index) => <img key={index} src={`${process.env.REACT_APP_API_URL}/${img.image_url}`} alt={img.image_url} className="h-[120px] aspect-square" />)}
                           </Link>
                           <div className="flex-1">
-                            <Link to={`produts/${item.id}`} className="text-[15px] font-semibold line-clamp-2 hover:text-[#A3A3A3]">
+                            <Link to={`products/${item.id}`} className="text-[15px] font-semibold line-clamp-2 hover:text-[#A3A3A3]">
                               {item.name}
                             </Link>
                             <span className="text-[#FD0000] font-bold text-base">{Number(item.price).toLocaleString("vi-VN")} ₫</span>
