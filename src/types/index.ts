@@ -44,6 +44,8 @@ export interface Products {
   hot: boolean;
   brand_id: number;
   product_line_id: number;
+  brand_name: string;
+  product_line_name: string;
   images: ProductImages[];
   createdAt: string;
   updatedAt: string;
@@ -77,7 +79,7 @@ export interface OrderItems {
   updatedAt: string;
 }
 export interface ProductLines {
-  id: number; 
+  id: number;
   name: string;
   description: string;
   image: string;
@@ -85,7 +87,7 @@ export interface ProductLines {
   updatedAt: string;
 }
 
-export interface Vouchers { 
+export interface Vouchers {
   id: number;
   code: string;
   discountType: string;

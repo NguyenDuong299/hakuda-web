@@ -109,7 +109,12 @@ const ProductDetail = () => {
                   <div className="flex gap-5 mb-4">
                     {product?.brand_id && (
                       <span className="font-normal">
-                        Thương hiệu: <strong>{product?.brand_id}</strong>
+                        Thương hiệu: <strong>{product?.brand_name}</strong>
+                      </span>
+                    )}
+                    {product?.product_line_id && (
+                      <span className="font-normal">
+                        Thương hiệu: <strong>{product?.product_line_name}</strong>
                       </span>
                     )}
                     <span className="font-normal">
