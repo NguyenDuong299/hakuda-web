@@ -67,7 +67,6 @@ const Header = () => {
   };
   const products = useCartStore((state) => state.products);
   const cartNumber = products.length;
-
   return (
     <header>
       <div className="container mx-auto px-5 lg:px-0">
@@ -91,7 +90,9 @@ const Header = () => {
                         Đăng xuất
                       </button>
                     </div>
-                    <span className="text-[#666]">Tài khoản của bạn!</span>
+                    <span className="text-[#666]">
+                      Xin chào <strong className="text-black">{user.firstName}</strong>!
+                    </span>
                   </div>
                 </>
               ) : (
