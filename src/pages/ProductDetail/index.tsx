@@ -21,7 +21,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [quality, setQuality] = useState(1);
+  const [quality, setQuality] = useState(1);  
   const [tabActive, setTabActive] = useState(1);
   const [product, setProduct] = useState<Products | null>(null);
   const [relatedProduct, setRelatedProduct] = useState<Products[]>([]);
@@ -63,18 +63,19 @@ const ProductDetail = () => {
       toast.success("Thêm vào giỏ hàng thành công!");
     }
   };
-  const fetchProduct = async () => {
-    try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/filter/related/${product?.id}`);
-      setRelatedProduct(res.data.products);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/filter/related/${product?.id}`);
+        setRelatedProduct(res.data.products);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
     fetchProduct();
-  }, [product]);
+  }, []);
+
   return (
     <>
       <div className="container px-5 mx-auto lg:px-0 mb-[30px]">

@@ -40,7 +40,7 @@ const Cart = () => {
                       {products.length > 0 &&
                         products.map((item, index) => (
                           <tr key={index}>
-                            <td className="py-2 px-2.5 flex flex-col sm:flex-row gap-2.5 sm:items-center">
+                            <td className="py-2 pl-2.5 pr-20 flex flex-col sm:flex-row gap-2.5 sm:items-center">
                               <Link to={`/products/${item.id}`}>
                                 {item.images &&
                                   item.images

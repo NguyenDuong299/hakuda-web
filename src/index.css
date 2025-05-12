@@ -68,7 +68,6 @@ select:focus-visible {
   font-size: 15px !important;
   color: black;
   font-weight: bold;
-  background: #C4C4C5;
   width: 30px;
   height: 30px;
   display: flex;

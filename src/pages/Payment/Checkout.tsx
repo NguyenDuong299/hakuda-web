@@ -37,7 +37,7 @@ const Payment = () => {
   const handlePayment = async () => {
     setLoading(true);
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/orders`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/orders`, {
         ...form,
         user_id: user?.id,
         voucher_id: voucher.id,

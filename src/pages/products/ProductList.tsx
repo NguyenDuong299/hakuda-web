@@ -42,6 +42,9 @@ const ProductList = ({ selectedBrands, selectedProductLines, minPrice, maxPrice 
     fetchProduct();
   }, [page, searchQuery, selectedBrands, selectedProductLines, minPrice, maxPrice, sortBy]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery, selectedBrands, selectedProductLines, minPrice, maxPrice, sortBy]);
   return (
     <>
       <div className="w-full lg:w-3/4 flex flex-col gap-4">

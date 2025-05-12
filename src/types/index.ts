@@ -16,7 +16,7 @@ export interface Users {
   lastName: string;
   email: string;
   phoneNumber: string;
-  address: string;
+  addressDesc: string;
   role: string;
   password: string;
   confirmPassword: string;
