@@ -49,6 +49,11 @@ const ProductDetail = () => {
   }, [id, navigate]);
 
   const handleAddToCart = () => {
+    if (product?.stock_quantity === 0) {
+      toast.error("Sản phẩm hiện tại đang hết hàng!");
+      return;
+    }
+
     if (product) {
       const cartProduct = {
         ...product,
@@ -78,15 +83,7 @@ const ProductDetail = () => {
           <div className="w-full lg:w-3/4">
             <div className="flex flex-col md:flex-row gap-5">
               <div className="w-full md:w-[calc(100%/12*5)]">
-                <Swiper
-                  style={{
-                    "--swiper-pagination-color": "#fff",
-                  }}
-                  spaceBetween={10}
-                  thumbs={{ swiper: thumbsSwiper }}
-                  modules={[FreeMode, Thumbs]}
-                  className="mySwiper2"
-                >
+                <Swiper style={{ "--swiper-pagination-color": "#fff" } as React.CSSProperties} spaceBetween={10} thumbs={{ swiper: thumbsSwiper }} modules={[FreeMode, Thumbs]} className="mySwiper2">
                   {product?.images.map((item, index) => (
                     <SwiperSlide key={index}>
                       <a data-fancybox="gallery" href={`${process.env.REACT_APP_API_URL}/${item.image_url}`}>

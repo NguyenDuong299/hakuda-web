@@ -39,7 +39,7 @@ export interface Products {
   description: string;
   detail: string;
   price: number;
-  stock_quanlity: number;
+  stock_quantity: number;
   isDiscount: boolean;
   hot: boolean;
   brand_id: number;

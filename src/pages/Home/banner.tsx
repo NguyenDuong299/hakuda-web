@@ -30,9 +30,7 @@ const Banner = () => {
               <Swiper className="w-full" spaceBetween={0} slidesPerView={1} loop={true} autoplay={{ delay: 7000 }} navigation={true} modules={[Autoplay, Navigation]}>
                 {banner.map((item, index) => (
                   <SwiperSlide key={index}>
-                    <a href="/">
-                      <img src={`${process.env.REACT_APP_API_URL}/${item.image}`} alt={item.name} className="w-full aspect-[1400/546]" />
-                    </a>
+                    <img src={`${process.env.REACT_APP_API_URL}/${item.image}`} alt={item.name} className="w-full aspect-[1400/546]" />
                   </SwiperSlide>
                 ))}
               </Swiper>

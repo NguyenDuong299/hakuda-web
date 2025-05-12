@@ -5,7 +5,6 @@ import axios from "axios";
 
 export const useAuthCheck = () => {
   const { setUser, setLoading } = useAuth();
-
   useEffect(() => {
     const checkLogin = async () => {
       setLoading(true);

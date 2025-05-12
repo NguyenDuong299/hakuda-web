@@ -48,7 +48,6 @@ const Payment = () => {
           price: item.price,
         })),
       });
-      console.log(res);
       toast.success("Đặt hàng thành công!");
       clearCart();
       navigate("/");

@@ -40,7 +40,6 @@ const News = () => {
     str = str.replace(/&amp;/g, "&");
     return str;
   };
-  console.log(products);
 
   return (
     <section className="mt-[30px]">
