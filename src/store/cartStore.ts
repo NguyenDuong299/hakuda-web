@@ -10,6 +10,7 @@ interface CartState {
   removeFromCart: (id: number) => void;
   clearCart: () => void;
   loadCartFromLocalStorage: () => void;
+  updateQuantity: (id: number, newQuantity: number) => void;
 }
 
 export const useCartStore = create<CartState>((set) => ({
@@ -45,4 +46,10 @@ export const useCartStore = create<CartState>((set) => ({
       set({ products: JSON.parse(cart) });
     }
   },
+  updateQuantity: (id: number, newQuantity: number) =>
+    set((state) => {
+      const updatedProducts = state.products.map((product) => (product.id === id ? { ...product, cart_quantity: newQuantity } : product));
+      localStorage.setItem("cart", JSON.stringify(updatedProducts));
+      return { products: updatedProducts };
+    }),
 }));

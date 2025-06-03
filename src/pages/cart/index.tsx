@@ -7,6 +7,7 @@ const Cart = () => {
   const products = useCartStore((state) => state.products);
   const totalPrice = products.reduce((acc, item) => acc + item.price * item.cart_quantity, 0);
   const deleteProduct = useCartStore((state) => state.removeFromCart);
+  const updateQuantity = useCartStore((state) => state.updateQuantity);
   return (
     <>
       <Breadcrumb br1="Giỏ hàng" url="/cart" />
@@ -30,7 +31,7 @@ const Cart = () => {
                   <table className="table-auto w-full">
                     <thead className="border">
                       <tr>
-                        <th className="text-left py-2 px-2.5 max-w-[50%]">Thông tin sản phẩm</th>
+                        <th className="text-left py-2 px-2.5 max-w-[50%] lg:w-[500px]">Thông tin sản phẩm</th>
                         <th className="py-2 max-w-[17%]">Đơn giá</th>
                         <th className="py-2 max-w-[17%]">Số lượng</th>
                         <th className="py-2 max-w-[17%] hidden lg:table-cell">Thành tiền</th>
@@ -60,7 +61,15 @@ const Cart = () => {
                             </td>
                             <td className="py-2 text-center text-[#ef1104] font-bold">{Number(item.price).toLocaleString("vi-VN")}₫</td>
                             <td className="py-2 text-center">
-                              <span>{item.cart_quantity}</span>
+                              <div className="flex items-center justify-center">
+                                <button className="w-[30px] h-[30px] border" onClick={() => updateQuantity(item.id, Math.max(1, item.cart_quantity - 1))}>
+                                  -
+                                </button>
+                                <span className="w-[35px] h-[30px] border-t border-b flex items-center justify-center">{item.cart_quantity}</span>
+                                <button className="w-[30px] h-[30px] border" onClick={() => updateQuantity(item.id, item.cart_quantity + 1)}>
+                                  +
+                                </button>
+                              </div>
                             </td>
                             <td className="py-2 text-center text-[#ef1104] font-bold hidden lg:table-cell"> {(item.price * item.cart_quantity).toLocaleString("vi-VN")}₫</td>
                           </tr>
